@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+// import logo from "./logo.svg";
+import "./App.scss";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import Toast from "react-bootstrap/Toast";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import BookItem from "./components/BookItem";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="app">
+      <h3>Book Shelf</h3>
+      {["book1", "book2", "book3"].map(book => {
+        return <BookItem book={book} />;
+      })}
+    </Container>
   );
 }
 

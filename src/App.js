@@ -1,23 +1,29 @@
 import React from "react";
-// import logo from "./logo.svg";
-import "./App.scss";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Toast from "react-bootstrap/Toast";
+import { Provider } from "react-redux";
+import store from "./services/store";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Alert from "react-bootstrap/Alert";
-import Button from "react-bootstrap/Button";
 import BookItem from "./components/BookItem";
+import BookView from "./pages/BookView";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "./App.scss";
 
 function App() {
   return (
-    <Container className="app">
-      <h3>Book Shelf</h3>
-      {["book1", "book2", "book3"].map(book => {
-        return <BookItem book={book} />;
-      })}
-    </Container>
+    <Provider store={store}>
+      <Switch>
+        <Route exact path="/">
+          <Container className="app">
+            <h3>Book Shelf</h3>
+            {["book1", "book2", "book3"].map(book => {
+              return <BookItem book={book} />;
+            })}
+          </Container>
+        </Route>
+        <Route path="/book">
+          <BookView book="KKK" />
+        </Route>
+      </Switch>
+    </Provider>
   );
 }
 

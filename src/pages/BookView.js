@@ -1,31 +1,27 @@
 import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Media from "react-bootstrap/Media";
 import Image from "react-bootstrap/Image";
-import "./BookItem.scss";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setBookView } from "../services";
+import "./BookView.scss";
+import { useSelector } from "react-redux";
 
-function BookItem({ book }) {
-  const dispatch = useDispatch();
+export default function BookView() {
+  const bookView1 = useSelector(state => state.bookView);
+  console.log("OK", bookView1);
   return (
     <Row className="row shelf">
       <Col md={2} className="text-center">
-        {/* <button onClick={() => setBookView(book)}>Clik</button> */}
-        <Link to="/book" onClick={() => dispatch(setBookView(book))}>
-          <Image
-            src="https://picsum.photos/100/100"
-            thumbnail
-            className="book-pic"
-          />
-        </Link>
-        <div className="category-small-screen category d-md-none">Category</div>
+        <Image
+          src="https://picsum.photos/100/100"
+          thumbnail
+          className="book-pic"
+        />
       </Col>
       <Col className="text-center text-md-left">
         <Row>
           <Col className="text-center text-md-left">
-            <h3>{book}</h3>
+            <h3>{bookView1}</h3>
           </Col>
           <div className="d-none category-small-screen category d-md-inline-block">
             Category
@@ -41,5 +37,3 @@ function BookItem({ book }) {
     </Row>
   );
 }
-
-export default BookItem;

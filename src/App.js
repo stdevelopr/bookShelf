@@ -1,10 +1,11 @@
 import React from "react";
 import { Provider } from "react-redux";
 import store from "./services/store";
-import Container from "react-bootstrap/Container";
-import BookItem from "./components/BookItem";
+import BookCategory from "./pages/BookCategory";
 import BookView from "./pages/BookView";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import BookControl from "./pages/BookControl";
+import Home from "./pages/Home";
+import { Switch, Route } from "react-router-dom";
 import "./App.scss";
 
 function App() {
@@ -12,15 +13,16 @@ function App() {
     <Provider store={store}>
       <Switch>
         <Route exact path="/">
-          <Container className="app">
-            <h3>Book Shelf</h3>
-            {["book1", "book2", "book3"].map(book => {
-              return <BookItem book={book} />;
-            })}
-          </Container>
+          <Home />
+        </Route>
+        <Route path="/category">
+          <BookCategory />
         </Route>
         <Route path="/book">
-          <BookView book="KKK" />
+          <BookView />
+        </Route>
+        <Route path="/control">
+          <BookControl />
         </Route>
       </Switch>
     </Provider>

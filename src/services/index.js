@@ -1,1 +1,1 @@
-export { setBookView } from "./book/bookActions";
+export * from "./book/bookActions";

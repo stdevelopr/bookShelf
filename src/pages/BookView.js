@@ -1,14 +1,12 @@
 import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Media from "react-bootstrap/Media";
 import Image from "react-bootstrap/Image";
 import "./BookView.scss";
 import { useSelector } from "react-redux";
 
 export default function BookView() {
-  const bookView1 = useSelector(state => state.bookView);
-  console.log("OK", bookView1);
+  const bookView = useSelector(state => state.bookView);
   return (
     <Row className="row shelf">
       <Col md={2} className="text-center">
@@ -21,7 +19,7 @@ export default function BookView() {
       <Col className="text-center text-md-left">
         <Row>
           <Col className="text-center text-md-left">
-            <h3>{bookView1}</h3>
+            <h3>{bookView}</h3>
           </Col>
           <div className="d-none category-small-screen category d-md-inline-block">
             Category

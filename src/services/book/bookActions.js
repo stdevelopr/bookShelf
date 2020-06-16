@@ -1,10 +1,12 @@
-import axios from "axios";
+// import axios from "axios";
 import {
   SET_BOOK_VIEW,
-  FETCH_BOOKS_REQUEST,
-  FETCH_BOOKS_SUCCESS,
-  FETCH_BOOKS_FAILURE,
-  ADD_NEW_BOOK
+  // FETCH_BOOKS_REQUEST,
+  // FETCH_BOOKS_SUCCESS,
+  // FETCH_BOOKS_FAILURE,
+  FETCH_STORAGE_BOOKS,
+  ADD_NEW_BOOK,
+  EDIT_BOOK
 } from "./bookTypes";
 
 export const setBookView = book => {
@@ -14,33 +16,35 @@ export const setBookView = book => {
   };
 };
 
-const fetchBooksRequest = () => {
-  return { type: FETCH_BOOKS_REQUEST };
-};
+// Async calls
+// const fetchBooksRequest = () => {
+//   return { type: FETCH_BOOKS_REQUEST };
+// };
 
-const fetchBooksSuccess = books => {
-  return {
-    type: FETCH_BOOKS_SUCCESS,
-    payload: books
-  };
-};
+// const fetchBooksSuccess = books => {
+//   return {
+//     type: FETCH_BOOKS_SUCCESS,
+//     payload: books
+//   };
+// };
 
-const fetchBooksFailure = error => {
-  return {
-    type: FETCH_BOOKS_FAILURE,
-    payload: error
-  };
-};
+// const fetchBooksFailure = error => {
+//   return {
+//     type: FETCH_BOOKS_FAILURE,
+//     payload: error
+//   };
+// };
 
-export const fetchBooks = () => {
+export const fetchStorageBooks = () => {
   return dispatch => {
-    dispatch(fetchBooksRequest());
-
-    const books = JSON.parse(localStorage.getItem("books"));
-    if (books) dispatch(fetchBooksSuccess(books));
-    else {
-      dispatch(fetchBooksFailure("Sem livros"));
+    let books = [];
+    if (localStorage.hasOwnProperty("books")) {
+      books = JSON.parse(localStorage.getItem("books"));
     }
+    dispatch({
+      type: FETCH_STORAGE_BOOKS,
+      payload: books
+    });
     // axios
     //   .get("https://jsonplaceholder.typicode.com/albums")
     //   .then(response => {
@@ -54,18 +58,54 @@ export const fetchBooks = () => {
   };
 };
 
+const setStorageBooks = booksArray => {
+  localStorage.setItem("books", JSON.stringify(booksArray));
+};
+
+const guid = () => {
+  let s4 = () => {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  };
+  return s4() + "-" + s4();
+};
+
 export const addNewBook = book => {
   return dispatch => {
-    let books = new Array();
+    let books = [];
     if (localStorage.hasOwnProperty("books")) {
-      const prev = JSON.parse(localStorage.getItem("books"));
-      prev.push(book);
-      localStorage.setItem("books", JSON.stringify(prev));
-      dispatch({ type: ADD_NEW_BOOK, payload: prev });
-    } else {
-      books.push(book);
-      localStorage.setItem("books", JSON.stringify(books));
-      dispatch({ type: ADD_NEW_BOOK, payload: books });
+      books = JSON.parse(localStorage.getItem("books"));
     }
+    books.push({
+      id: guid(),
+      timestamp: Date.now(),
+      title: book.title,
+      description: book.description,
+      author: book.author,
+      category: book.category,
+      deleted: book.deleted
+    });
+    setStorageBooks(books);
+    dispatch({ type: ADD_NEW_BOOK, payload: books });
   };
+};
+
+export const editBook = book => {
+  let books = JSON.parse(localStorage.getItem("books"));
+  let index = books.findIndex(b => b.id === book.id);
+  let new_books_array = [...books];
+  new_books_array[index] = { ...book };
+  setStorageBooks(new_books_array);
+  return dispatch => {
+    dispatch({
+      type: EDIT_BOOK,
+      payload: new_books_array
+    });
+  };
+};
+
+export const getBookById = bookId => {
+  let books = JSON.parse(localStorage.getItem("books"));
+  return books.filter(book => book.id === bookId)[0];
 };

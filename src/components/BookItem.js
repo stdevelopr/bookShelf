@@ -25,18 +25,14 @@ function BookItem({ book }) {
       <Col className="text-center text-md-left">
         <Row>
           <Col className="text-center text-md-left">
-            <h3>{book}</h3>
+            <h3>{book.title}</h3>
+            <p>{book.author}</p>
           </Col>
           <div className="d-none category-small-screen category d-md-inline-block">
-            Category
+            {book.category}
           </div>
         </Row>
-        <p>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-          scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in
-          vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-          vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </p>
+        <p>{book.description}</p>
       </Col>
     </Row>
   );

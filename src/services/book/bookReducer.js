@@ -5,7 +5,8 @@ import {
   // FETCH_BOOKS_FAILURE,
   FETCH_STORAGE_BOOKS,
   ADD_NEW_BOOK,
-  EDIT_BOOK
+  EDIT_BOOK,
+  DELETE_BOOK
 } from "./bookTypes";
 
 const initialState = {
@@ -39,7 +40,6 @@ const bookReducer = (state = initialState, action) => {
     //     error: action.payload
     //   };
     case FETCH_STORAGE_BOOKS:
-      console.log(action.payload);
       return {
         ...state,
         books: action.payload
@@ -50,6 +50,11 @@ const bookReducer = (state = initialState, action) => {
         books: action.payload
       };
     case EDIT_BOOK:
+      return {
+        ...state,
+        books: action.payload
+      };
+    case DELETE_BOOK:
       return {
         ...state,
         books: action.payload

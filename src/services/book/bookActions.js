@@ -6,15 +6,9 @@ import {
   // FETCH_BOOKS_FAILURE,
   FETCH_STORAGE_BOOKS,
   ADD_NEW_BOOK,
-  EDIT_BOOK
+  EDIT_BOOK,
+  DELETE_BOOK
 } from "./bookTypes";
-
-export const setBookView = book => {
-  return {
-    type: SET_BOOK_VIEW,
-    payload: book
-  };
-};
 
 // Async calls
 // const fetchBooksRequest = () => {
@@ -35,11 +29,38 @@ export const setBookView = book => {
 //   };
 // };
 
+const getStorageBooks = () => {
+  return JSON.parse(localStorage.getItem("books"));
+};
+
+const getBookById = bookId => {
+  let books = getStorageBooks();
+  return books.filter(book => book.id === bookId)[0];
+};
+
+const setStorageBooks = booksArray => {
+  localStorage.setItem("books", JSON.stringify(booksArray));
+};
+
+const findBookIndexById = (booksArray, bookItemId) => {
+  const index = booksArray.findIndex(book => book.id === bookItemId);
+  return index;
+};
+
+const guid = () => {
+  let s4 = () => {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  };
+  return s4() + "-" + s4();
+};
+
 export const fetchStorageBooks = () => {
   return dispatch => {
     let books = [];
     if (localStorage.hasOwnProperty("books")) {
-      books = JSON.parse(localStorage.getItem("books"));
+      books = getStorageBooks();
     }
     dispatch({
       type: FETCH_STORAGE_BOOKS,
@@ -58,24 +79,18 @@ export const fetchStorageBooks = () => {
   };
 };
 
-const setStorageBooks = booksArray => {
-  localStorage.setItem("books", JSON.stringify(booksArray));
-};
-
-const guid = () => {
-  let s4 = () => {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
+export const setBookView = book => {
+  return {
+    type: SET_BOOK_VIEW,
+    payload: book
   };
-  return s4() + "-" + s4();
 };
 
 export const addNewBook = book => {
   return dispatch => {
     let books = [];
     if (localStorage.hasOwnProperty("books")) {
-      books = JSON.parse(localStorage.getItem("books"));
+      books = getStorageBooks();
     }
     books.push({
       id: guid(),
@@ -92,8 +107,8 @@ export const addNewBook = book => {
 };
 
 export const editBook = book => {
-  let books = JSON.parse(localStorage.getItem("books"));
-  let index = books.findIndex(b => b.id === book.id);
+  let books = getStorageBooks();
+  let index = findBookIndexById(books, book.id);
   let new_books_array = [...books];
   new_books_array[index] = { ...book };
   setStorageBooks(new_books_array);
@@ -105,7 +120,21 @@ export const editBook = book => {
   };
 };
 
-export const getBookById = bookId => {
-  let books = JSON.parse(localStorage.getItem("books"));
-  return books.filter(book => book.id === bookId)[0];
+export const deleteBook = bookId => {
+  const books = getStorageBooks();
+  const index = findBookIndexById(books, bookId);
+  if (index != -1) {
+    const new_books_array = [...books];
+    new_books_array.splice(index, 1);
+    setStorageBooks(new_books_array);
+    return dispatch => {
+      dispatch({
+        type: DELETE_BOOK,
+        payload: new_books_array
+      });
+    };
+  }
+  return {
+    type: null
+  };
 };

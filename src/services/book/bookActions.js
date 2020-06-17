@@ -29,14 +29,18 @@ import {
 //   };
 // };
 
-const getStorageBooks = () => {
-  return JSON.parse(localStorage.getItem("books"));
+const filterDeletedBooks = booksArray => {
+  return booksArray.filter(book => book.deleted === false);
 };
 
-const getBookById = bookId => {
-  let books = getStorageBooks();
-  return books.filter(book => book.id === bookId)[0];
+const getStorageActiveBooks = () => {
+  return filterDeletedBooks(JSON.parse(localStorage.getItem("books")));
 };
+
+// const getBookById = bookId => {
+//   let books = getStorageActiveBooks();
+//   return books.filter(book => book.id === bookId)[0];
+// };
 
 const setStorageBooks = booksArray => {
   localStorage.setItem("books", JSON.stringify(booksArray));
@@ -60,7 +64,7 @@ export const fetchStorageBooks = () => {
   return dispatch => {
     let books = [];
     if (localStorage.hasOwnProperty("books")) {
-      books = getStorageBooks();
+      books = getStorageActiveBooks();
     }
     dispatch({
       type: FETCH_STORAGE_BOOKS,
@@ -90,7 +94,7 @@ export const addNewBook = book => {
   return dispatch => {
     let books = [];
     if (localStorage.hasOwnProperty("books")) {
-      books = getStorageBooks();
+      books = getStorageActiveBooks();
     }
     books.push({
       id: guid(),
@@ -107,7 +111,7 @@ export const addNewBook = book => {
 };
 
 export const editBook = book => {
-  let books = getStorageBooks();
+  let books = getStorageActiveBooks();
   let index = findBookIndexById(books, book.id);
   let new_books_array = [...books];
   new_books_array[index] = { ...book };
@@ -121,16 +125,16 @@ export const editBook = book => {
 };
 
 export const deleteBook = bookId => {
-  const books = getStorageBooks();
+  const books = getStorageActiveBooks();
   const index = findBookIndexById(books, bookId);
-  if (index != -1) {
+  if (index !== -1) {
     const new_books_array = [...books];
-    new_books_array.splice(index, 1);
+    new_books_array[index]["deleted"] = true;
     setStorageBooks(new_books_array);
     return dispatch => {
       dispatch({
         type: DELETE_BOOK,
-        payload: new_books_array
+        payload: getStorageActiveBooks()
       });
     };
   }

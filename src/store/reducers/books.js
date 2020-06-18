@@ -48,5 +48,7 @@ export default (state = initialState, action) => {
 
 export const actions = {
   fetchBooks: books => ({ type: types.FETCH_STORAGE_BOOKS, payload: books }),
-  addNewBook: book => ({ type: types.ADD_NEW_BOOK, payload: book })
+  editBook: books => ({ type: types.EDIT_BOOK, payload: books }),
+  addNewBook: books => ({ type: types.ADD_NEW_BOOK, payload: books }),
+  deleteBook: books => ({ type: types.DELETE_BOOK, payload: books })
 };

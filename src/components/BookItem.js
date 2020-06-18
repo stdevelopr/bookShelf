@@ -4,17 +4,13 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "./BookItem.scss";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import types from "../reducers/books";
-const { setBookView } = types;
 
 function BookItem({ book }) {
-  const dispatch = useDispatch();
   return (
     <Row className="row shelf">
       <Col md={2} className="text-center">
         {/* <button onClick={() => setBookView(book)}>Clik</button> */}
-        <Link to="/book" onClick={() => dispatch(setBookView(book))}>
+        <Link to={`/book/${book.id}`}>
           <Image
             src="https://picsum.photos/100/100"
             thumbnail

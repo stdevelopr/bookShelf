@@ -4,13 +4,17 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "./BookView.scss";
 import { useSelector, useDispatch } from "react-redux";
-// import { deleteBook } from "../services";
-import { withRouter } from "react-router";
+import { withRouter, useParams } from "react-router";
 import ShelfContainer from "../components/ShelfContainer";
+import { sagaTypes } from "../store/sagas/books";
 
 function BookView(props) {
-  const book = useSelector(state => state.bookView);
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const book = useSelector(
+    state => state.books.filter(book => book.id === id)[0]
+  );
+
   return (
     <ShelfContainer>
       <div>
@@ -27,15 +31,16 @@ function BookView(props) {
               <Row>
                 <Col className="text-center text-md-left">
                   <h3>{book.title}</h3>
+                  <p>{book.author}</p>
                 </Col>
                 <div className="d-none category-small-screen category d-md-inline-block">
-                  Category
+                  {book.category}
                 </div>
               </Row>
               <p>{book.description}</p>
               <button
                 onClick={() => {
-                  dispatch("teste");
+                  dispatch({ type: sagaTypes.DELETE_BOOK, payload: book.id });
                   props.history.push("/");
                 }}
               >

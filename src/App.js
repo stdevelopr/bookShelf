@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { sagaTypes } from "./sagas/books";
+import { sagaTypes } from "./store/sagas/books";
 import BookCategory from "./pages/BookCategory";
 import BookView from "./pages/BookView";
 import BookControl from "./pages/BookControl";
@@ -19,7 +19,7 @@ function App() {
       <Route path="/category">
         <BookCategory />
       </Route>
-      <Route path="/book">
+      <Route path="/book/:id">
         <BookView />
       </Route>
       <Route path="/control">

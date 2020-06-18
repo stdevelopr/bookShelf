@@ -7,8 +7,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./BookControl.scss";
 import { useDispatch, useSelector } from "react-redux";
-import types from "../reducers/books";
-const { addNewBook, editBook } = types;
+import { sagaTypes } from "../store/sagas/books";
+
 export default function BookControl() {
   const [bookTitle, setBookTitle] = useState("");
   const [bookDescription, setBookDescription] = useState("");
@@ -29,6 +29,7 @@ export default function BookControl() {
     setAction("Save");
     setEditBookId(book.id);
   };
+
   return (
     <div>
       <Container className="text-center">
@@ -53,25 +54,27 @@ export default function BookControl() {
               onSubmit={e => {
                 e.preventDefault();
                 action === "Create"
-                  ? dispatch(
-                      addNewBook({
+                  ? dispatch({
+                      type: sagaTypes.ADD_NEW_BOOK,
+                      payload: {
                         title: bookTitle ? bookTitle : "null",
                         author: bookAuthor,
                         description: bookDescription,
                         category: bookCategory ? bookCategory : "want to read",
                         deleted: false
-                      })
-                    )
-                  : dispatch(
-                      editBook({
+                      }
+                    })
+                  : dispatch({
+                      type: sagaTypes.EDIT_BOOK,
+                      payload: {
                         id: editBookId,
                         title: bookTitle,
                         author: bookAuthor,
                         description: bookDescription,
                         category: bookCategory,
                         deleted: false
-                      })
-                    );
+                      }
+                    });
               }}
             >
               <Form.Group as={Col} controlId="category">

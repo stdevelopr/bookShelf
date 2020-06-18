@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "./BookView.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteBook } from "../services";
+// import { deleteBook } from "../services";
 import { withRouter } from "react-router";
 import ShelfContainer from "../components/ShelfContainer";
 
@@ -35,7 +35,7 @@ function BookView(props) {
               <p>{book.description}</p>
               <button
                 onClick={() => {
-                  dispatch(deleteBook(book.id));
+                  dispatch("teste");
                   props.history.push("/");
                 }}
               >

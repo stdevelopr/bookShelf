@@ -7,8 +7,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./BookControl.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewBook, editBook } from "../services";
-
+import types from "../reducers/books";
+const { addNewBook, editBook } = types;
 export default function BookControl() {
   const [bookTitle, setBookTitle] = useState("");
   const [bookDescription, setBookDescription] = useState("");

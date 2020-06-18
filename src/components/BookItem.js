@@ -5,7 +5,8 @@ import Image from "react-bootstrap/Image";
 import "./BookItem.scss";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setBookView } from "../services";
+import types from "../reducers/books";
+const { setBookView } = types;
 
 function BookItem({ book }) {
   const dispatch = useDispatch();

@@ -4,8 +4,10 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "./BookItem.scss";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function BookItem({ book }) {
+  const categories = useSelector(state => state.categories);
   return (
     <Row className="row shelf">
       <Col md={2} className="text-center">
@@ -17,7 +19,11 @@ function BookItem({ book }) {
             className="book-pic"
           />
         </Link>
-        <div className="category-small-screen category d-md-none">Category</div>
+        <Link to={`/category/${book.category}`}>
+          <div className="category-small-screen category d-md-none">
+            {categories[book.category]}
+          </div>
+        </Link>
       </Col>
       <Col className="text-center text-md-left">
         <Row>
@@ -25,9 +31,11 @@ function BookItem({ book }) {
             <h3>{book.title}</h3>
             <p>{book.author}</p>
           </Col>
-          <div className="d-none category-small-screen category d-md-inline-block">
-            {book.category}
-          </div>
+          <Link to={`/category/${book.category}`}>
+            <div className="d-none category-small-screen category d-md-inline-block">
+              {categories[book.category]}
+            </div>
+          </Link>
         </Row>
         <p>{book.description}</p>
       </Col>

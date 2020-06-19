@@ -17,6 +17,7 @@ function BookView(props) {
   const book = useSelector(
     state => state.books.filter(book => book.id === id)[0]
   );
+  const categories = useSelector(state => state.categories);
 
   return (
     <ShelfContainer>
@@ -37,7 +38,7 @@ function BookView(props) {
                   <p>{book.author}</p>
                 </Col>
                 <div className="d-none category-small-screen category d-md-inline-block">
-                  {book.category}
+                  {categories[book.category]}
                 </div>
               </Row>
               <p>{book.description}</p>

@@ -1,8 +1,13 @@
 import { takeLatest } from "redux-saga/effects";
+import { sagaCategoryTypes, sagaCategoryWorkers } from "./categories";
 import { sagaBookTypes, sagaBookWorkers } from "./books";
 import { sagaCommentTypes, sagaCommentWorkers } from "./comments";
 
 export default function* rootSaga() {
+  yield takeLatest(
+    sagaCategoryTypes.FETCH_CATEGORIES,
+    sagaCategoryWorkers.fechCategories
+  );
   yield takeLatest(
     sagaBookTypes.FETCH_STORAGE_BOOKS,
     sagaBookWorkers.fechBooks

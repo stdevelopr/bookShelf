@@ -3,8 +3,7 @@ export const types = {
   FETCH_STORAGE_BOOKS: `FETCH_STORAGE_BOOKS_${base}`,
   ADD_NEW_BOOK: `ADD_NEW_BOOK_${base}`,
   EDIT_BOOK: `EDIT_BOOK_${base}`,
-  DELETE_BOOK: `DELETE_BOOK_${base}`,
-  SET_BOOK_VIEW: `SET_BOOK_VIEW_${base}`
+  DELETE_BOOK: `DELETE_BOOK_${base}`
 };
 
 export const initialState = [];

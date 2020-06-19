@@ -1,5 +1,7 @@
 import React from "react";
+import { useParams } from "react-router";
 
 export default function BookCategory() {
-  return <div>Category</div>;
+  const { category } = useParams();
+  return <div>Category {category}</div>;
 }

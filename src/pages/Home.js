@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 export default function Home() {
   let books = useSelector(state => state.books);
-  console.log(books);
   return (
     <ShelfContainer>
       {books ? (

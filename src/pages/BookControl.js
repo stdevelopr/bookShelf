@@ -17,16 +17,25 @@ export default function BookControl() {
   const [action, setAction] = useState("Create");
   const [editBookId, setEditBookId] = useState("");
   const booksData = useSelector(state => state.books);
+  const categories = useSelector(state => state.categories);
+
   const dispatch = useDispatch();
-  console.log(booksData);
   const setBook = bookId => {
     let book = getBookById(bookId);
     setBookTitle(book.title);
     setBookAuthor(book.author);
     setBookDescription(book.description);
-    setBookCategory(book.category);
+    setBookCategory(categories[book.category]);
     setAction("Save");
     setEditBookId(book.id);
+  };
+
+  const getCategoryKey = value => {
+    return (
+      Object.keys(categories).find(
+        category => categories[category] === value
+      ) || null
+    );
   };
 
   return (
@@ -59,7 +68,7 @@ export default function BookControl() {
                         title: bookTitle ? bookTitle : "null",
                         author: bookAuthor,
                         description: bookDescription,
-                        category: bookCategory ? bookCategory : "want to read",
+                        category: getCategoryKey(bookCategory),
                         deleted: false
                       }
                     })
@@ -70,7 +79,7 @@ export default function BookControl() {
                         title: bookTitle,
                         author: bookAuthor,
                         description: bookDescription,
-                        category: bookCategory,
+                        category: getCategoryKey(bookCategory),
                         deleted: false
                       }
                     });
@@ -81,12 +90,14 @@ export default function BookControl() {
                 <Form.Control
                   as="select"
                   value={bookCategory}
-                  onChange={e => setBookCategory(e.target.value)}
+                  onChange={e => {
+                    setBookCategory(e.target.value);
+                  }}
                 >
                   <option>Choose...</option>
-                  <option>reading</option>
-                  <option>want to read</option>
-                  <option>read</option>
+                  {Object.keys(categories).map(key => {
+                    return <option key={key}>{categories[key]}</option>;
+                  })}
                 </Form.Control>
               </Form.Group>
 

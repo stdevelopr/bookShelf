@@ -58,7 +58,7 @@ function BookView(props) {
           <p>select a book</p>
         )}
       </div>
-      <Comments />
+      <Comments parentId={id} />
     </ShelfContainer>
   );
 }

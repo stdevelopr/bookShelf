@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { sagaCommentTypes } from "../store/sagas/comments";
 import "./Comments.scss";
 
-export default function Comments() {
+export default function Comments({ parentId }) {
   const dispatch = useDispatch();
-  let comments = useSelector(state => state.comments);
+  let comments = useSelector(state =>
+    state.comments.filter(comment => comment.parentId === parentId)
+  );
   const [add, setAdd] = useState(false);
   const [comment, setComment] = useState("");
 
@@ -31,10 +33,10 @@ export default function Comments() {
                   dispatch({
                     type: sagaCommentTypes.ADD_COMMENT,
                     comment: {
-                      parentId: "teste",
+                      parentId: parentId,
                       timestamp: Date.now(),
                       body: comment,
-                      author: "",
+                      author: "user",
                       deleted: false
                     }
                   });

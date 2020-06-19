@@ -1,9 +1,18 @@
 import { takeLatest } from "redux-saga/effects";
-import { sagaTypes, sagaWorkers } from "./books";
+import { sagaBookTypes, sagaBookWorkers } from "./books";
+import { sagaCommentTypes, sagaCommentWorkers } from "./comments";
 
 export default function* rootSaga() {
-  yield takeLatest(sagaTypes.FETCH_STORAGE_BOOKS, sagaWorkers.fechBooks);
-  yield takeLatest(sagaTypes.EDIT_BOOK, sagaWorkers.editBook);
-  yield takeLatest(sagaTypes.ADD_NEW_BOOK, sagaWorkers.addBook);
-  yield takeLatest(sagaTypes.DELETE_BOOK, sagaWorkers.deleteBook);
+  yield takeLatest(
+    sagaBookTypes.FETCH_STORAGE_BOOKS,
+    sagaBookWorkers.fechBooks
+  );
+  yield takeLatest(sagaBookTypes.EDIT_BOOK, sagaBookWorkers.editBook);
+  yield takeLatest(sagaBookTypes.ADD_NEW_BOOK, sagaBookWorkers.addBook);
+  yield takeLatest(sagaBookTypes.DELETE_BOOK, sagaBookWorkers.deleteBook);
+  yield takeLatest(sagaCommentTypes.ADD_COMMENT, sagaCommentWorkers.addComment);
+  yield takeLatest(
+    sagaCommentTypes.FETCH_COMMENTS,
+    sagaCommentWorkers.fetchComments
+  );
 }

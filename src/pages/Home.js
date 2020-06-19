@@ -4,17 +4,18 @@ import BookItem from "../components/BookItem";
 import { useSelector } from "react-redux";
 
 export default function Home() {
-  const booksData = useSelector(state => state);
+  let books = useSelector(state => state.books);
+  console.log(books);
   return (
     <ShelfContainer>
-      {booksData.loading ? (
-        <div>Loading...</div>
-      ) : (
+      {books ? (
         <div>
-          {booksData.books.map(book => {
+          {books.map(book => {
             return <BookItem key={book.id} book={book} />;
           })}
         </div>
+      ) : (
+        <div>no books...</div>
       )}
     </ShelfContainer>
   );

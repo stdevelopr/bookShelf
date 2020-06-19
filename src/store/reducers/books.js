@@ -7,40 +7,22 @@ export const types = {
   SET_BOOK_VIEW: `SET_BOOK_VIEW_${base}`
 };
 
-export const initialState = {
-  bookView: "",
-  loading: false,
-  books: [],
-  error: ""
-};
+export const initialState = [];
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.SET_BOOK_VIEW:
-      return {
-        ...state,
-        bookView: action.payload
-      };
     case types.FETCH_STORAGE_BOOKS:
-      return {
-        ...state,
-        books: action.payload
-      };
+      return action.payload;
+
     case types.ADD_NEW_BOOK:
-      return {
-        ...state,
-        books: action.payload
-      };
+      return action.payload;
+
     case types.EDIT_BOOK:
-      return {
-        ...state,
-        books: action.payload
-      };
+      return action.payload;
+
     case types.DELETE_BOOK:
-      return {
-        ...state,
-        books: action.payload
-      };
+      return action.payload;
+
     default:
       return state;
   }

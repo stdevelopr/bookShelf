@@ -2,7 +2,7 @@ import { put } from "redux-saga/effects";
 import { actions } from "../reducers/books";
 
 const base = "SAGA";
-export const sagaTypes = {
+export const sagaBookTypes = {
   FETCH_STORAGE_BOOKS: `FETCH_STORAGE_BOOKS_${base}`,
   ADD_NEW_BOOK: `ADD_NEW_BOOK_${base}`,
   EDIT_BOOK: `EDIT_BOOK_${base}`,
@@ -10,7 +10,7 @@ export const sagaTypes = {
   SET_BOOK_VIEW: `SET_BOOK_VIEW_${base}`
 };
 
-export const sagaWorkers = {
+export const sagaBookWorkers = {
   fechBooks: function*() {
     let books = getStorageActiveBooks();
     yield put(actions.fetchBooks(books));
@@ -54,16 +54,21 @@ const filterDeletedBooks = booksArray => {
   return booksArray.filter(book => book.deleted === false);
 };
 
-const getStorageActiveBooks = () => {
+export const getStorageActiveBooks = () => {
   let books = [];
-  if (localStorage.hasOwnProperty("books")) {
-    books = filterDeletedBooks(JSON.parse(localStorage.getItem("books")));
+  if (localStorage.hasOwnProperty("Books")) {
+    books = filterDeletedBooks(JSON.parse(localStorage.getItem("Books")));
   }
   return books;
 };
 
+export const getBookById = bookId => {
+  const books = getStorageActiveBooks();
+  return books.filter(book => book.id === bookId)[0];
+};
+
 const setStorageBooks = booksArray => {
-  localStorage.setItem("books", JSON.stringify(booksArray));
+  localStorage.setItem("Books", JSON.stringify(booksArray));
 };
 
 const findBookIndexById = (booksArray, bookItemId) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { sagaTypes } from "./store/sagas/books";
+import { sagaBookTypes } from "./store/sagas/books";
 import BookCategory from "./pages/BookCategory";
 import BookView from "./pages/BookView";
 import BookControl from "./pages/BookControl";
@@ -10,7 +10,7 @@ import "./App.scss";
 
 function App() {
   const dispatch = useDispatch();
-  dispatch({ type: sagaTypes.FETCH_STORAGE_BOOKS });
+  dispatch({ type: sagaBookTypes.FETCH_STORAGE_BOOKS });
   return (
     <Switch>
       <Route exact path="/">

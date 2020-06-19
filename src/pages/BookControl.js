@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./BookControl.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { sagaTypes } from "../store/sagas/books";
+import { sagaBookTypes, getBookById } from "../store/sagas/books";
 
 export default function BookControl() {
   const [bookTitle, setBookTitle] = useState("");
@@ -16,12 +16,11 @@ export default function BookControl() {
   const [bookCategory, setBookCategory] = useState("");
   const [action, setAction] = useState("Create");
   const [editBookId, setEditBookId] = useState("");
-  const booksData = useSelector(state => state);
+  const booksData = useSelector(state => state.books);
   const dispatch = useDispatch();
-
-  const getBookById = bookId => {
-    let books = JSON.parse(localStorage.getItem("books"));
-    let book = books.filter(book => book.id === bookId)[0];
+  console.log(booksData);
+  const setBook = bookId => {
+    let book = getBookById(bookId);
     setBookTitle(book.title);
     setBookAuthor(book.author);
     setBookDescription(book.description);
@@ -37,12 +36,12 @@ export default function BookControl() {
         <NavMenu />
         <Row>
           <Col lg={{ order: 2 }} className="books-list">
-            {booksData.books.map(book => {
+            {booksData.map(book => {
               return (
                 <div
                   id={book.id}
                   key={book.id}
-                  onClick={e => getBookById(e.target.getAttribute("id"))}
+                  onClick={e => setBook(e.target.getAttribute("id"))}
                 >
                   {book.title}
                 </div>
@@ -55,7 +54,7 @@ export default function BookControl() {
                 e.preventDefault();
                 action === "Create"
                   ? dispatch({
-                      type: sagaTypes.ADD_NEW_BOOK,
+                      type: sagaBookTypes.ADD_NEW_BOOK,
                       payload: {
                         title: bookTitle ? bookTitle : "null",
                         author: bookAuthor,
@@ -65,7 +64,7 @@ export default function BookControl() {
                       }
                     })
                   : dispatch({
-                      type: sagaTypes.EDIT_BOOK,
+                      type: sagaBookTypes.EDIT_BOOK,
                       payload: {
                         id: editBookId,
                         title: bookTitle,

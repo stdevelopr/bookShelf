@@ -18,3 +18,17 @@
   top: 0px;
   right: 10px;
 }
+
+.book-item-hover {
+  border: solid 1px;
+  :hover {
+    background-color: #eaf1f1;
+  }
+}
+
+// .not-inherit {
+//   border: none;
+//   :hover {
+//     border: none;
+//   }
+// }

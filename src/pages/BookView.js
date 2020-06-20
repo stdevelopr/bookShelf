@@ -8,12 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { withRouter, useParams } from "react-router";
 import ShelfContainer from "../components/ShelfContainer";
 import Comments from "../components/Comments";
-import { sagaBookTypes } from "../store/sagas/books";
-import { sagaCommentTypes } from "../store/sagas/comments";
 
 function BookView(props) {
   const dispatch = useDispatch();
-  dispatch({ type: sagaCommentTypes.FETCH_COMMENTS });
   const { id } = useParams();
   const book = useSelector(
     state => state.books.filter(book => book.id === id)[0]
@@ -30,17 +27,6 @@ function BookView(props) {
         ) : (
           <div>
             <p>select a book</p>
-            <button
-              onClick={() => {
-                dispatch({
-                  type: sagaBookTypes.DELETE_BOOK,
-                  payload: book.id
-                });
-                props.history.push("/");
-              }}
-            >
-              delete
-            </button>
           </div>
         )}
       </div>

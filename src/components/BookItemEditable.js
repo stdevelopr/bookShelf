@@ -5,14 +5,17 @@ import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import "./BookItemEditable.scss";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { withRouter } from "react-router";
 import logo from "./logo.png";
+import { sagaBookTypes } from "../store/sagas/books";
 
-function BookItemEditable({ book }) {
+function BookItemEditable({ book, history }) {
+  const dispatch = useDispatch();
   const categories = useSelector(state => state.categories);
   const [edit, setEdit] = useState(false);
-  const [editTitle, setEditTitle] = useState(book.title);
-  const [editDescription, setEditDescription] = useState(book.description);
+  // const [editTitle, setEditTitle] = useState(book.title);
+  // const [editDescription, setEditDescription] = useState(book.description);
   const [editCategory, setEditCategory] = useState(categories[book.category]);
   const titleRef = useRef();
   const authorRef = useRef();
@@ -115,11 +118,11 @@ function BookItemEditable({ book }) {
                 </Form.Control> */}
               </div>
             ) : (
-              <Link to={`/category/${book.category}`}>
-                <div className="category-small-screen category d-md-inline-block">
+              <div className="category-small-screen category d-md-inline-block">
+                <Link to={`/category/${book.category}`}>
                   {categories[book.category]}
-                </div>
-              </Link>
+                </Link>
+              </div>
             )}
           </Row>
           <div
@@ -138,12 +141,23 @@ function BookItemEditable({ book }) {
               contentEditable={edit}
               suppressContentEditableWarning={true}
             >
-              {editDescription}
+              {book.description}
             </p>
           </Row>
           <div className="edit-item-button">
             <button onClick={() => setEdit(true)}>Edit</button>
             <button onClick={() => cancelEditing()}>Cancel</button>
+            <button
+              onClick={() => {
+                dispatch({
+                  type: sagaBookTypes.DELETE_BOOK,
+                  payload: book.id
+                });
+                history.push("/");
+              }}
+            >
+              delete
+            </button>
           </div>
         </Col>
         <p></p>
@@ -152,4 +166,4 @@ function BookItemEditable({ book }) {
   );
 }
 
-export default BookItemEditable;
+export default withRouter(BookItemEditable);

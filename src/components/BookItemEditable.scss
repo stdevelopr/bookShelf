@@ -20,3 +20,11 @@
 .word-break {
   word-break: break-all;
 }
+
+.category {
+  background-color: whitesmoke;
+  height: 20px;
+  :hover {
+    background-color: yellow !important;
+  }
+}

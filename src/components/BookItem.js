@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useRef } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "./BookItem.scss";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import logo from "./logo.png";
 import { withRouter } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { sagaCommentTypes } from "../store/sagas/comments";
 
 function BookItem({ book, history }) {
   const categories = useSelector(state => state.categories);
+  const categoryRef = useRef();
+  const dispatch = useDispatch();
   return (
     <Row
       className="row shelf book-item-hover"
-      onClick={() => history.push("/book/" + book.id)}
+      onClick={e => {
+        if (!categoryRef.current.contains(e.target)) {
+          dispatch({ type: sagaCommentTypes.FETCH_COMMENTS });
+          history.push("/book/" + book.id);
+        }
+      }}
+      // history.push("/book/" + book.id)
     >
       {/* <Col md={2} className="text-center">
       {edit ? (
@@ -70,12 +79,14 @@ function BookItem({ book, history }) {
               </Col>
             </Row>
           </Col>
-
-          <Link to={`/category/${book.category}`}>
-            <div className="category-small-screen category d-md-inline-block">
+          <div
+            className="category-small-screen category d-md-inline-block"
+            ref={categoryRef}
+          >
+            <Link to={`/category/${book.category}`}>
               {categories[book.category]}
-            </div>
-          </Link>
+            </Link>
+          </div>
         </Row>
         <div
           style={{

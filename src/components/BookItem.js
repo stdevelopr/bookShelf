@@ -18,7 +18,7 @@ function BookItem({ book, history }) {
       className="row shelf book-item-hover"
       onClick={e => {
         if (!categoryRef.current.contains(e.target)) {
-          dispatch({ type: sagaCommentTypes.FETCH_COMMENTS });
+          // dispatch({ type: sagaCommentTypes.FETCH_COMMENTS });
           history.push("/book/" + book.id);
         }
       }}
@@ -66,7 +66,7 @@ function BookItem({ book, history }) {
               <Col
                 md={2}
                 style={{
-                  fontSize: "20px",
+                  fontSize: "18px",
                   color: "blue",
                   textAlign: "center",
                   margin: "auto"
@@ -74,7 +74,7 @@ function BookItem({ book, history }) {
               >
                 <div>Author</div>
               </Col>
-              <Col md={10} style={{ fontSize: "20px" }}>
+              <Col md={10} style={{ fontSize: "18px" }}>
                 <div className="word-break">{book.author}</div>
               </Col>
             </Row>

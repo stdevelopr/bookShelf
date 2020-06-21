@@ -20,12 +20,36 @@ function BookItemEditable({ book, history }) {
   const titleRef = useRef();
   const authorRef = useRef();
   const descriptionRef = useRef();
+  const edit_border = edit ? "edit-border" : "";
 
   const cancelEditing = () => {
     setEdit(false);
     titleRef.current.innerHTML = book.title;
     authorRef.current.innerHTML = book.author;
     descriptionRef.current.innerHTML = book.description;
+  };
+
+  const getCategoryKey = value => {
+    return (
+      Object.keys(categories).find(
+        category => categories[category] === value
+      ) || null
+    );
+  };
+
+  const editBook = () => {
+    dispatch({
+      type: sagaBookTypes.EDIT_BOOK,
+      payload: {
+        id: book.id,
+        title: titleRef.current.innerHTML,
+        author: authorRef.current.innerHTML,
+        description: descriptionRef.current.innerHTML,
+        category: getCategoryKey(book.category),
+        deleted: false
+      }
+    });
+    setEdit(false);
   };
   return (
     <div>
@@ -69,7 +93,7 @@ function BookItemEditable({ book, history }) {
                     ref={titleRef}
                     contentEditable={edit}
                     suppressContentEditableWarning={true}
-                    className="word-break"
+                    className={`word-break ${edit_border}`}
                   >
                     {book.title}
                   </div>
@@ -79,7 +103,7 @@ function BookItemEditable({ book, history }) {
                 <Col
                   md={2}
                   style={{
-                    fontSize: "20px",
+                    fontSize: "18px",
                     color: "blue",
                     textAlign: "center",
                     margin: "auto"
@@ -87,12 +111,12 @@ function BookItemEditable({ book, history }) {
                 >
                   <div>Author</div>
                 </Col>
-                <Col md={10} style={{ fontSize: "20px" }}>
+                <Col md={10} style={{ fontSize: "18px" }}>
                   <div
                     ref={authorRef}
                     contentEditable={edit}
                     suppressContentEditableWarning={true}
-                    className="word-break"
+                    className={`word-break ${edit_border}`}
                   >
                     {book.author}
                   </div>
@@ -140,12 +164,19 @@ function BookItemEditable({ book, history }) {
               ref={descriptionRef}
               contentEditable={edit}
               suppressContentEditableWarning={true}
+              className={`word-break description ${edit_border}`}
             >
               {book.description}
             </p>
           </Row>
           <div className="edit-item-button">
-            <button onClick={() => setEdit(true)}>Edit</button>
+            <button
+              onClick={() => {
+                edit ? editBook() : setEdit(true);
+              }}
+            >
+              {edit ? "Save" : "Edit"}
+            </button>
             <button onClick={() => cancelEditing()}>Cancel</button>
             <button
               onClick={() => {

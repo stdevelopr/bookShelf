@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { withRouter, useParams } from "react-router";
 import ShelfContainer from "../components/ShelfContainer";
 import Comments from "../components/Comments";
+import { sagaCommentTypes } from "../store/sagas/comments";
 
 function BookView(props) {
   const dispatch = useDispatch();
@@ -16,6 +17,11 @@ function BookView(props) {
     state => state.books.filter(book => book.id === id)[0]
   );
   const categories = useSelector(state => state.categories);
+  // dispatch({ type: sagaCommentTypes.FETCH_COMMENTS });
+
+  useEffect(() => {
+    dispatch({ type: sagaCommentTypes.FETCH_COMMENTS });
+  }, []);
 
   return (
     <ShelfContainer>

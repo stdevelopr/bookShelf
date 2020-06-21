@@ -15,7 +15,7 @@ export default function Comments({ parentId }) {
     <div className="comments-container">
       {comments.length > 0 ? (
         comments.map(comment => (
-          <p key={comment.id} className="comment-item">
+          <p key={comment.id} className="comment-item word-break">
             {comment.body}
           </p>
         ))

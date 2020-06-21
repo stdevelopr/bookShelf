@@ -7,7 +7,7 @@ import "./BookView.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter, useParams } from "react-router";
 import ShelfContainer from "../components/ShelfContainer";
-import Comments from "../components/Comments";
+import CommentsContainer from "../components/CommentsContainer";
 import { sagaCommentTypes } from "../store/sagas/comments";
 
 function BookView(props) {
@@ -36,7 +36,7 @@ function BookView(props) {
           </div>
         )}
       </div>
-      <Comments parentId={id} />
+      <CommentsContainer parentId={id} />
     </ShelfContainer>
   );
 }

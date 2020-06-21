@@ -45,7 +45,7 @@ function BookItemEditable({ book, history }) {
         title: titleRef.current.innerHTML,
         author: authorRef.current.innerHTML,
         description: descriptionRef.current.innerHTML,
-        category: getCategoryKey(book.category),
+        category: getCategoryKey(editCategory),
         deleted: false
       }
     });
@@ -125,9 +125,9 @@ function BookItemEditable({ book, history }) {
             </Col>
             {edit ? (
               <div className="category-small-screen category d-md-inline-block">
-                {categories[book.category]}
+                {/* {categories[book.category]} */}
 
-                {/* <Form.Control
+                <Form.Control
                   as="select"
                   className="edit-select-category"
                   value={editCategory}
@@ -135,11 +135,11 @@ function BookItemEditable({ book, history }) {
                     setEditCategory(e.target.value);
                   }}
                 >
-                  <option>Choose...</option>
+                  <option>Choose a category...</option>
                   {Object.keys(categories).map(key => {
                     return <option key={key}>{categories[key]}</option>;
                   })}
-                </Form.Control> */}
+                </Form.Control>
               </div>
             ) : (
               <div className="category-small-screen category d-md-inline-block">

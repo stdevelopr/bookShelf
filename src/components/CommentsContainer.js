@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { sagaCommentTypes } from "../store/sagas/comments";
-import "./Comments.scss";
+import { AiOutlineEdit } from "react-icons/ai";
+import { FcDeleteRow } from "react-icons/fc";
+import { MdDeleteForever } from "react-icons/md";
+import CommentLine from "./CommentLine";
+// MdDeleteForever
 
-export default function Comments({ parentId }) {
+import "./CommentsContainer.scss";
+
+export default function CommentsContainer({ parentId }) {
   const dispatch = useDispatch();
   let comments = useSelector(state =>
     state.comments.filter(comment => comment.parentId === parentId)
   );
   const [add, setAdd] = useState(false);
   const [comment, setComment] = useState("");
+  const [editComment, setEditComment] = useState(false);
+  const edit_border = editComment ? "edit-border-comment" : "";
 
   return (
     <div className="comments-container">
       {comments.length > 0 ? (
-        comments.map(comment => (
-          <p key={comment.id} className="comment-item word-break">
-            {comment.body}
-          </p>
-        ))
+        comments.map(comment => <CommentLine comment={comment} />)
       ) : (
         <p>No comments yet...</p>
       )}

@@ -4,7 +4,9 @@ import { actions } from "../reducers/comments";
 const base = "SAGA";
 export const sagaCommentTypes = {
   FETCH_COMMENTS: `FETCH_COMMENTS_${base}`,
-  ADD_COMMENT: `ADD_COMMENT_${base}`
+  ADD_COMMENT: `ADD_COMMENT_${base}`,
+  EDIT_COMMENT: `EDIT_COMMENT_${base}`,
+  DELETE_COMMENT: `DELETE_COMMENT_${base}`
 };
 
 export const sagaCommentWorkers = {
@@ -24,26 +26,26 @@ export const sagaCommentWorkers = {
     });
     setStorageComments(comments);
     yield put(actions.addComment(comments));
+  },
+  editComment: function*({ payload: comment }) {
+    let comments = getStorageActiveComments();
+    let index = findCommentIndexById(comments, comment.id);
+    let new_comments_array = [...comments];
+    new_comments_array[index] = { ...comment };
+    setStorageComments(new_comments_array);
+    yield put(actions.editComment(new_comments_array));
+  },
+  deleteComment: function*({ payload: commentId }) {
+    const comments = getStorageActiveComments();
+    const index = findCommentIndexById(comments, commentId);
+    if (index !== -1) {
+      const new_comments_array = [...comments];
+      new_comments_array[index]["deleted"] = true;
+      setStorageComments(new_comments_array);
+      yield put(actions.deleteComment(getStorageActiveComments()));
+    }
+    yield put({ type: null });
   }
-  //   editBook: function*({ payload: book }) {
-  //     let books = getStorageActiveBooks();
-  //     let index = findBookIndexById(books, book.id);
-  //     let new_books_array = [...books];
-  //     new_books_array[index] = { ...book };
-  //     setStorageBooks(new_books_array);
-  //     yield put(actions.editBook(new_books_array));
-  //   },
-  //   deleteBook: function*({ payload: bookId }) {
-  //     const books = getStorageActiveBooks();
-  //     const index = findBookIndexById(books, bookId);
-  //     if (index !== -1) {
-  //       const new_books_array = [...books];
-  //       new_books_array[index]["deleted"] = true;
-  //       setStorageBooks(new_books_array);
-  //       yield put(actions.deleteBook(getStorageActiveBooks()));
-  //     }
-  //     yield put({ type: null });
-  //   }
 };
 
 const getStorageActiveComments = () => {
@@ -54,6 +56,13 @@ const getStorageActiveComments = () => {
     );
   }
   return comments;
+};
+
+const findCommentIndexById = (commentsArray, commentItemId) => {
+  const index = commentsArray.findIndex(
+    comment => comment.id === commentItemId
+  );
+  return index;
 };
 
 const setStorageComments = commentsArray => {

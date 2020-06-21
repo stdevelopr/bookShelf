@@ -1,7 +1,9 @@
 .comment-item {
-  // background-color: white;
+  white-space: pre;
+  min-height: 25px;
   border-bottom: solid 1px;
   width: calc(100% - 55px);
+  //   word-break: break-all;
 }
 
 .edit-border-comment {

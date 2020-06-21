@@ -17,8 +17,7 @@ export default function CommentsContainer({ parentId }) {
   const [add, setAdd] = useState(false);
   const [comment, setComment] = useState("");
   const [editComment, setEditComment] = useState(false);
-  const edit_border = editComment ? "edit-border-comment" : "";
-
+  // const edit_border = editComment ? "edit-border-comment" : "";
   return (
     <div className="comments-container">
       {comments.length > 0 ? (

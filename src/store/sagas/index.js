@@ -20,4 +20,12 @@ export default function* rootSaga() {
     sagaCommentTypes.FETCH_COMMENTS,
     sagaCommentWorkers.fetchComments
   );
+  yield takeLatest(
+    sagaCommentTypes.EDIT_COMMENT,
+    sagaCommentWorkers.editComment
+  );
+  yield takeLatest(
+    sagaCommentTypes.DELETE_COMMENT,
+    sagaCommentWorkers.deleteComment
+  );
 }

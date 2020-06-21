@@ -37,14 +37,20 @@ function BookItemEditable({ book, history }) {
     );
   };
 
+  const strip_html_tags = str => {
+    if (str === null || str === "") return false;
+    else str = str.toString();
+    return str.replace(/<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g, " ");
+  };
+
   const editBook = () => {
     dispatch({
       type: sagaBookTypes.EDIT_BOOK,
       payload: {
         id: book.id,
-        title: titleRef.current.innerHTML,
-        author: authorRef.current.innerHTML,
-        description: descriptionRef.current.innerHTML,
+        title: strip_html_tags(titleRef.current.innerHTML),
+        author: strip_html_tags(authorRef.current.innerHTML),
+        description: strip_html_tags(descriptionRef.current.innerHTML),
         category: getCategoryKey(editCategory),
         deleted: false
       }
@@ -94,6 +100,7 @@ function BookItemEditable({ book, history }) {
                     contentEditable={edit}
                     suppressContentEditableWarning={true}
                     className={`word-break ${edit_border}`}
+                    style={{ whiteSpace: "nowrap" }}
                   >
                     {book.title}
                   </div>

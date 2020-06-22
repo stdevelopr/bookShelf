@@ -17,6 +17,15 @@ export default function Home() {
     }
   });
 
+  const nullBooksCategory = books.filter(book => book.category === null);
+  const readingBooksCategory = books.filter(
+    book => book.category === "reading"
+  );
+  const wantToReadBooksCategory = books.filter(
+    book => book.category === "wantToRead"
+  );
+  const readBooksCategory = books.filter(book => book.category === "read");
+
   return (
     <ShelfContainer>
       <div style={{ display: "flex", margin: "20px 0px 30px 0px" }}>
@@ -32,18 +41,55 @@ export default function Home() {
             setOrderBy(e.target.value);
           }}
         >
+          <option>Category</option>
           <option>Alphabetical order</option>
           <option>Creation date</option>
         </Form.Control>
       </div>
       {books ? (
         <div>
-          {books.map(book => {
+          {nullBooksCategory.map(book => {
             return <BookItem key={book.id} book={book} />;
           })}
         </div>
       ) : (
         <div>no books...</div>
+      )}
+      <h3>Want to read</h3>
+      {wantToReadBooksCategory.length > 0 ? (
+        <div>
+          {wantToReadBooksCategory
+            .filter(book => book.category === "wantToRead")
+            .map(book => {
+              return <BookItem key={book.id} book={book} />;
+            })}
+        </div>
+      ) : (
+        <div>no books in this category...</div>
+      )}
+      <h3>Reading</h3>
+      {readingBooksCategory.length > 0 ? (
+        <div>
+          {readingBooksCategory
+            .filter(book => book.category === "reading")
+            .map(book => {
+              return <BookItem key={book.id} book={book} />;
+            })}
+        </div>
+      ) : (
+        <div>no books in this category...</div>
+      )}
+      <h3>Read</h3>
+      {readBooksCategory.length > 0 ? (
+        <div>
+          {readBooksCategory
+            .filter(book => book.category === "read")
+            .map(book => {
+              return <BookItem key={book.id} book={book} />;
+            })}
+        </div>
+      ) : (
+        <div>no books in this category...</div>
       )}
     </ShelfContainer>
   );

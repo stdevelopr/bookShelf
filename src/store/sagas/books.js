@@ -31,8 +31,9 @@ export const sagaBookWorkers = {
   editBook: function*({ payload: book }) {
     let books = getStorageActiveBooks();
     let index = findBookIndexById(books, book.id);
+    let timestamp = books[index].timestamp;
     let new_books_array = [...books];
-    new_books_array[index] = { ...book };
+    new_books_array[index] = { ...book, timestamp: timestamp };
     setStorageBooks(new_books_array);
     yield put(actions.editBook(new_books_array));
   },

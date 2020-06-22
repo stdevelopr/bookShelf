@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
@@ -13,6 +13,7 @@ function BookItem({ book, history }) {
   const categories = useSelector(state => state.categories);
   const categoryRef = useRef();
   const dispatch = useDispatch();
+
   return (
     <Row
       className="row shelf book-item-hover"
@@ -98,9 +99,12 @@ function BookItem({ book, history }) {
         >
           Description
         </div>
-        <Row style={{ margin: "30px", marginTop: "10px" }}>
-          <p>{book.description}</p>
-        </Row>
+        <div style={{ margin: "30px", marginTop: "10px", textAlign: "center" }}>
+          {book.description}
+        </div>
+        <div>
+          created at: {new Date(book.timestamp).toLocaleDateString("en-GB")}
+        </div>
       </Col>
     </Row>
   );

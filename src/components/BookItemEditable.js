@@ -166,15 +166,17 @@ function BookItemEditable({ book, history }) {
           >
             Description
           </div>
-          <Row style={{ margin: "30px", marginTop: "10px" }}>
-            <p
+          <Row
+            style={{ margin: "30px", marginTop: "10px", textAlign: "center" }}
+          >
+            <div
               ref={descriptionRef}
               contentEditable={edit}
               suppressContentEditableWarning={true}
               className={`word-break description ${edit_border}`}
             >
               {book.description}
-            </p>
+            </div>
           </Row>
           <div className="edit-item-button">
             <button
@@ -197,8 +199,10 @@ function BookItemEditable({ book, history }) {
               delete
             </button>
           </div>
+          <div>
+            created at: {new Date(book.timestamp).toLocaleDateString("en-GB")}
+          </div>
         </Col>
-        <p></p>
       </Row>
     </div>
   );

@@ -16,7 +16,7 @@ export const sagaCommentWorkers = {
   },
   addComment: function*({ comment }) {
     let comments = getStorageActiveComments();
-    comments.push({
+    comments.unshift({
       id: guid(),
       parentId: comment.parentId,
       timestamp: Date.now(),

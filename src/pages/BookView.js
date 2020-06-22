@@ -27,8 +27,8 @@ function BookView(props) {
     <ShelfContainer>
       <div>
         {book ? (
-          <div>
-            <BookItemEditable key={book.id} book={book} />
+          <div key={book.id}>
+            <BookItemEditable book={book} />
           </div>
         ) : (
           <div>

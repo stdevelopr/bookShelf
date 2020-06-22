@@ -21,7 +21,9 @@ export default function CommentsContainer({ parentId }) {
   return (
     <div className="comments-container">
       {comments.length > 0 ? (
-        comments.map(comment => <CommentLine comment={comment} />)
+        comments.map(comment => (
+          <CommentLine key={comment.id} comment={comment} />
+        ))
       ) : (
         <p>No comments yet...</p>
       )}

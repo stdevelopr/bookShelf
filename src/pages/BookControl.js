@@ -50,6 +50,7 @@ export default function BookControl() {
                 <div
                   id={book.id}
                   key={book.id}
+                  className="word-break shelf-control-book-select"
                   onClick={e => setBook(e.target.getAttribute("id"))}
                 >
                   {book.title}

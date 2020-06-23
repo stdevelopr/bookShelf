@@ -13,10 +13,28 @@ export default function NavMenu() {
   // const categories = useSelector(state => state.categories);
 
   return (
-    <div>
-      <Navbar bg="light" className="navbar">
-        <Link to="/">Home</Link>
-        <Link to="/control">Create/Edit</Link>
+    <div style={{ color: "black" }}>
+      <Navbar
+        className="navbar"
+        style={{
+          backgroundColor: "burlywood",
+          height: "40px",
+          borderRadius: "0px 0px 5px 5px"
+        }}
+      >
+        <Link
+          to="/"
+          style={{ color: "white", fontWeight: "bold", fontSize: "18px" }}
+          // activeStyle={{ color: "red", textDecoration: "none" }}
+        >
+          Home
+        </Link>
+        <Link
+          to="/control"
+          style={{ color: "white", fontWeight: "bold", fontSize: "18px" }}
+        >
+          Create/Edit
+        </Link>
         {/* <div>
           <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">

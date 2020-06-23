@@ -27,8 +27,23 @@ export default function BookCategory() {
 
   return (
     <ShelfContainer>
-      <div style={{ display: "flex", margin: "20px 0px 30px 0px" }}>
-        <div style={{ display: "inline-block", marginRight: "20px" }}>
+      <div
+        style={{
+          display: "flex",
+          margin: "0px 5px 30px 5px",
+          backgroundColor: "burlywood",
+          paddingBottom: "10px",
+          borderRadius: "0px 0px 10px 10px"
+        }}
+      >
+        <div
+          style={{
+            display: "inline-block",
+            marginRight: "20px",
+            marginLeft: "30px",
+            color: "white"
+          }}
+        >
           Order by
         </div>
         <Form.Control

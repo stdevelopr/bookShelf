@@ -84,7 +84,10 @@ function BookItem({ book, history }) {
             className="category-small-screen category d-md-inline-block"
             ref={categoryRef}
           >
-            <Link to={`/category/${book.category}`}>
+            <Link
+              to={`/category/${book.category}`}
+              style={{ backgroundColor: "white", padding: "0px 10px" }}
+            >
               {categories[book.category]}
             </Link>
           </div>
@@ -103,7 +106,14 @@ function BookItem({ book, history }) {
           {book.description}
         </div>
         <div>
-          created at: {new Date(book.timestamp).toLocaleDateString("en-GB")}
+          Date:{" "}
+          {new Date(book.timestamp).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "numeric",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          })}
         </div>
       </Col>
     </Row>

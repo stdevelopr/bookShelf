@@ -33,8 +33,23 @@ export default function Home() {
 
   return (
     <ShelfContainer>
-      <div style={{ display: "flex", margin: "20px 0px 30px 0px" }}>
-        <div style={{ display: "inline-block", marginRight: "20px" }}>
+      <div
+        style={{
+          display: "flex",
+          margin: "0px 5px 30px 5px",
+          backgroundColor: "burlywood",
+          paddingBottom: "10px",
+          borderRadius: "0px 0px 10px 10px"
+        }}
+      >
+        <div
+          style={{
+            display: "inline-block",
+            marginRight: "20px",
+            marginLeft: "30px",
+            color: "white"
+          }}
+        >
           Order by
         </div>
         <Form.Control
@@ -57,7 +72,11 @@ export default function Home() {
         })}
       </div>
       <div className="home-categories">
-        <Link to={`/category/reading`}>
+        <Link
+          to={`/category/reading`}
+          className="category-title"
+          style={{ textDecoration: "none" }}
+        >
           <h3>Currently Reading</h3>
         </Link>
         {readingBooksCategory.length > 0 ? (
@@ -74,7 +93,11 @@ export default function Home() {
       </div>
 
       <div className="home-categories">
-        <Link to={`/category/wantToRead`}>
+        <Link
+          to={`/category/wantToRead`}
+          className="category-title"
+          style={{ textDecoration: "none" }}
+        >
           <h3>Want to read</h3>
         </Link>
 
@@ -91,8 +114,12 @@ export default function Home() {
         )}
       </div>
       <div className="home-categories">
-        <Link to={`/category/read`}>
-          <h3>Read</h3>
+        <Link
+          to={`/category/read`}
+          className="category-title"
+          style={{ textDecoration: "none" }}
+        >
+          <h3 className="category-title">Read</h3>
         </Link>
         {readBooksCategory.length > 0 ? (
           <div>

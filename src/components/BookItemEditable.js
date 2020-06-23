@@ -196,11 +196,18 @@ function BookItemEditable({ book, history }) {
                 history.push("/");
               }}
             >
-              delete
+              Delete
             </button>
           </div>
           <div>
-            created at: {new Date(book.timestamp).toLocaleDateString("en-GB")}
+            Date:{" "}
+            {new Date(book.timestamp).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "numeric",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}
           </div>
         </Col>
       </Row>

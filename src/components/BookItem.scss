@@ -1,7 +1,8 @@
 .shelf {
   border: solid 1px;
-  background-color: beige;
+  background-color: #ffca6da6;
   margin: 5px;
+  border-radius: 20px;
 }
 
 .book-pic {
@@ -9,11 +10,8 @@
 }
 
 .category {
-  background-color: whitesmoke;
-  height: 20px;
-  :hover {
-    background-color: yellow !important;
-  }
+  height: 30px;
+  margin-right: 15px;
 }
 
 .category-small-screen {
@@ -23,9 +21,9 @@
 }
 
 .book-item-hover {
-  border: solid 1px;
   :hover {
-    background-color: #eaf1f1;
+    background-color: #f3bd5f;
+    border-radius: 20px;
   }
 }
 

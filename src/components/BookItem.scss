@@ -1,8 +1,15 @@
+// @import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+// @import url("https://fonts.googleapis.com/css2?family=Mirza&family=Tangerine&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Mirza&family=Tangerine&display=swap");
 .shelf {
-  border: solid 1px;
-  background-color: #ffca6da6;
+  // background-color: #efeeff;
   margin: 5px;
   border-radius: 20px;
+  border: 1px solid;
+  box-shadow: 3px 3px 3px gray;
+  // font-family: "Josefin Sans", cursive;
+  // font-family: "Mirza", cursive;
+  // font-family: "Tangerine", cursive;
 }
 
 .book-pic {
@@ -10,20 +17,23 @@
 }
 
 .category {
-  height: 30px;
-  margin-right: 15px;
-}
-
-.category-small-screen {
   position: absolute;
   top: 0px;
   right: 10px;
+  margin-right: 15px;
 }
 
+// .category-small-screen {
+//   position: absolute;
+//   top: 0px;
+//   right: 10px;
+// }
+
 .book-item-hover {
-  :hover {
-    background-color: #f3bd5f;
+  :hover:not(.row):not(.desc) {
+    background-color: #efeeff;
     border-radius: 20px;
+    cursor: pointer;
   }
 }
 

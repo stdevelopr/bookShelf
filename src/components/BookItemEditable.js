@@ -2,20 +2,16 @@ import React, { useState, useRef } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Image from "react-bootstrap/Image";
 import "./BookItemEditable.scss";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router";
-import logo from "./logo.png";
 import { sagaBookTypes } from "../store/sagas/books";
 
 function BookItemEditable({ book, history }) {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories);
   const [edit, setEdit] = useState(false);
-  // const [editTitle, setEditTitle] = useState(book.title);
-  // const [editDescription, setEditDescription] = useState(book.description);
   const [editCategory, setEditCategory] = useState(categories[book.category]);
   const titleRef = useRef();
   const authorRef = useRef();
@@ -60,25 +56,6 @@ function BookItemEditable({ book, history }) {
   return (
     <div>
       <Row className="row shelf">
-        {/* <Col md={2} className="text-center">
-          {edit ? (
-            <div className="category-small-screen category d-md-none">
-              {categories[book.category]}
-            </div>
-          ) : (
-            <Link to={`/category/${book.category}`}>
-              <div className="category-small-screen category d-md-none">
-                {categories[book.category]}
-              </div>
-            </Link>
-          )}
-          <Image
-            src={logo}
-            thumbnail
-            className="book-pic"
-            style={{ marginTop: "30px" }}
-          />
-        </Col> */}
         <Col className="text-center text-md-left">
           <Row style={{ marginTop: "30px" }}>
             <Col className="text-center text-md-left">
@@ -132,8 +109,6 @@ function BookItemEditable({ book, history }) {
             </Col>
             {edit ? (
               <div className="category-small-screen category d-md-inline-block">
-                {/* {categories[book.category]} */}
-
                 <Form.Control
                   as="select"
                   className="edit-select-category"

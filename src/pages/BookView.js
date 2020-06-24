@@ -1,7 +1,4 @@
 import React, { useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image";
 import BookItemEditable from "../components/BookItemEditable";
 import "./BookView.scss";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,8 +13,6 @@ function BookView(props) {
   const book = useSelector(
     state => state.books.filter(book => book.id === id)[0]
   );
-  const categories = useSelector(state => state.categories);
-  // dispatch({ type: sagaCommentTypes.FETCH_COMMENTS });
 
   useEffect(() => {
     dispatch({ type: sagaCommentTypes.FETCH_COMMENTS });

@@ -32,9 +32,7 @@
 }
 
 .category {
-  background-color: whitesmoke;
-  height: 20px;
-  :hover {
+  :hover:not(.no-link) {
     background-color: yellow !important;
   }
 }

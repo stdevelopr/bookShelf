@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function OrderByContainer({ sortedBooks, setSortedBooks }) {
   const [orderBy, setOrderBy] = useState("Alphabetical order");
@@ -21,21 +23,20 @@ export default function OrderByContainer({ sortedBooks, setSortedBooks }) {
   }, [orderBy]);
 
   return (
-    <Navbar
+    <Row
       style={{
         display: "inline-block",
         width: "100%",
-        textAlign: "center"
+        marginBottom: "30px",
+        fontSize: "15px"
+        // textAlign: "center"
       }}
-      // bg="primary"
-      // variant="dark"
     >
       <div
         style={{
           display: "inline-block",
           marginRight: "20px",
           marginLeft: "20px"
-          // color: "white"
         }}
       >
         Order by
@@ -43,7 +44,7 @@ export default function OrderByContainer({ sortedBooks, setSortedBooks }) {
       <Form.Control
         as="select"
         className="edit-select-category"
-        style={{ width: "130px", display: "inline-block" }}
+        style={{ width: "200px", display: "inline-block" }}
         value={orderBy}
         onChange={e => {
           setOrderBy(e.target.value);
@@ -53,6 +54,35 @@ export default function OrderByContainer({ sortedBooks, setSortedBooks }) {
         <option>Creation date asc</option>
         <option>Creation date desc</option>
       </Form.Control>
-    </Navbar>
+      <div style={{ display: "inline-flex", float: "right", marginTop: "5px" }}>
+        <span style={{ margin: "0px 10px 0px 5px" }}>Reading</span>
+        <span
+          style={{
+            backgroundColor: "#ffca3a",
+            display: "inline-block",
+            width: "20px",
+            height: "20px"
+          }}
+        ></span>
+        <span style={{ margin: "0px 10px 0px 5px" }}>Want to read</span>
+        <span
+          style={{
+            backgroundColor: "#ff595e",
+            display: "inline-block",
+            width: "20px",
+            height: "20px"
+          }}
+        ></span>
+        <span style={{ margin: "0px 10px 0px 5px" }}>Read</span>
+        <span
+          style={{
+            backgroundColor: "#8ac926",
+            display: "inline-block",
+            width: "20px",
+            height: "20px"
+          }}
+        ></span>
+      </div>
+    </Row>
   );
 }

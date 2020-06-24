@@ -6,11 +6,11 @@ export default function NavMenu() {
   return (
     <div style={{ color: "black" }}>
       <Navbar
-        bg="primary"
         className="navbar"
         style={{
           height: "40px",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
+          backgroundColor: "#1982c4"
         }}
       >
         <Link

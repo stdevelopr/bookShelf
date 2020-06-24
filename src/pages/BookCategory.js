@@ -1,35 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ShelfContainer from "../components/ShelfContainer";
 import OrderByContainer from "../components/OrderByContainer";
-import BookItem from "../components/BookItem";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { withRouter } from "react-router";
+import "./Home.scss";
 
-export default function BookCategory() {
+function BookCategory({ history }) {
   const { category } = useParams();
-  const [sortedBooks, setSortedBooks] = useState(
-    useSelector(state => state.books.filter(book => book.category === category))
+  const books = useSelector(state =>
+    state.books.filter(
+      book => book.category === (category === "null" ? null : category)
+    )
   );
-  const categories = useSelector(state => state.categories);
+  const [sortedBooks, setSortedBooks] = useState(books);
+  useEffect(() => {
+    setSortedBooks(books);
+  }, [category]);
 
   return (
     <ShelfContainer>
       <OrderByContainer
         sortedBooks={sortedBooks}
         setSortedBooks={setSortedBooks}
+        category={category}
       />
-      <div className="home-categories">
-        <h3>{categories[category]}</h3>
-        {sortedBooks.length > 0 ? (
-          <div>
-            {sortedBooks.map(book => {
-              return <BookItem key={book.id} book={book} />;
-            })}
-          </div>
-        ) : (
-          <div>no books yet...</div>
-        )}
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style={{ width: "30px" }}></th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedBooks.length > 0 && (
+            <tr
+              style={{
+                backgroundColor:
+                  category === "read"
+                    ? "#8ac926"
+                    : category === "reading"
+                    ? "#ffca3a"
+                    : category === "wantToRead"
+                    ? "#ff595e"
+                    : "white"
+              }}
+            >
+              <td rowSpan={sortedBooks.length + 1}></td>
+            </tr>
+          )}
+          {sortedBooks.map(book => (
+            <tr key={book.id} onClick={() => history.push("/book/" + book.id)}>
+              <td>{book.title}</td>
+              <td>{book.author}</td>
+              <td>{book.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </ShelfContainer>
   );
 }
+
+export default withRouter(BookCategory);

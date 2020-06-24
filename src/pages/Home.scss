@@ -24,44 +24,45 @@ h3 {
   }
 }
 
-.table-category {
-  width: 100%;
-  text-align: center;
-  background-color: blue;
-  // padding: px;
-}
-
+// header of the table
 thead {
   text-align: center;
+  background-color: #eaedf5;
+  :nth-child(2) {
+    width: 200px;
+  }
+  // author
+  :nth-child(3) {
+    width: 200px;
+  }
 }
 
+th {
+  width: 700px;
+}
+
+// defines the width of the category column
+th:first-of-type {
+  width: 20px;
+  min-width: 10px;
+}
+
+// each line of the table
 tr {
-  text-align: center;
   border: solid 1px black;
 }
 
-tr:first-child {
-  background-color: #eaedf5;
+// each field of the body's table
+td {
+  padding: 5px;
+  text-align: center;
+}
+
+// title field
+td:first-of-type {
+  font-weight: bolder;
 }
 
 tr:hover {
   background-color: #eaedf5;
-}
-
-td {
-  width: 800px;
-  // border: solid 1px black;
-
-  text-align: center;
-  vertical-align: center;
-}
-
-td:first-of-type {
-  padding: 10px;
-  width: 200px;
-  font-weight: bolder;
-}
-
-td:nth-child(2) {
-  width: 200px;
 }

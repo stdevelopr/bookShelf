@@ -1,32 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ShelfContainer from "../components/ShelfContainer";
 import OrderByContainer from "../components/OrderByContainer";
+import CreateBookIcon from "../components/CreateBookIcon";
+import CreateBookFormModal from "../components/CreateBookFormModal";
 import { withRouter } from "react-router";
 import { useSelector } from "react-redux";
 import "./Home.scss";
 
 function Home({ history }) {
-  const [sortedBooks, setSortedBooks] = useState(
-    useSelector(state => state.books)
-  );
+  const books = useSelector(state => state.books);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [readingBooksCategory, setReadingBooksCategory] = useState([]);
+  const [wantToReadBooksCategory, setWantToReadBooksCategory] = useState([]);
+  const [readBooksCategory, setReadBooksCategory] = useState([]);
+  const [nullBooksCategory, setNullBooksCategory] = useState([]);
+  const [orderBy, setOrderBy] = useState("Alphabetical order");
 
-  const nullBooksCategory = sortedBooks.filter(book => book.category === null);
-  const readingBooksCategory = sortedBooks.filter(
-    book => book.category === "reading"
-  );
-  const wantToReadBooksCategory = sortedBooks.filter(
-    book => book.category === "wantToRead"
-  );
-  const readBooksCategory = sortedBooks.filter(
-    book => book.category === "read"
-  );
+  useEffect(() => {
+    books.sort((a, b) => {
+      if (orderBy === "Alphabetical order")
+        return a["title"].localeCompare(b["title"]);
+      else if (orderBy === "Creation date asc") {
+        if (a["timestamp"] < b["timestamp"]) return -1;
+        else return 1;
+      } else if (orderBy === "Creation date desc") {
+        if (a["timestamp"] > b["timestamp"]) return -1;
+        else return 1;
+      } else return 0;
+    });
+    setReadingBooksCategory(books.filter(book => book.category === "reading"));
+    setWantToReadBooksCategory(
+      books.filter(book => book.category === "wantToRead")
+    );
+    setReadBooksCategory(books.filter(book => book.category === "read"));
+    setNullBooksCategory(books.filter(book => book.category === null));
+  }, [books, orderBy]);
 
   return (
     <ShelfContainer>
-      <OrderByContainer
-        sortedBooks={sortedBooks}
-        setSortedBooks={setSortedBooks}
-      />
+      <OrderByContainer orderBy={orderBy} setOrderBy={setOrderBy} />
+
+      <CreateBookIcon setCreateModalOpen={setCreateModalOpen} />
 
       <table>
         <thead>
@@ -38,17 +52,9 @@ function Home({ history }) {
           </tr>
         </thead>
         <tbody>
-          {nullBooksCategory.length > 0 && (
-            <tr
-              style={{
-                backgroundColor: "white"
-              }}
-            >
-              <td rowSpan={nullBooksCategory.length + 1}></td>
-            </tr>
-          )}
           {nullBooksCategory.map(book => (
             <tr key={book.id} onClick={() => history.push("/book/" + book.id)}>
+              <td></td>
               <td>{book.title}</td>
               <td>{book.author}</td>
               <td>{book.description}</td>
@@ -110,6 +116,10 @@ function Home({ history }) {
           ))}
         </tbody>
       </table>
+      <CreateBookFormModal
+        createModalOpen={createModalOpen}
+        setCreateModalOpen={setCreateModalOpen}
+      />
     </ShelfContainer>
   );
 }

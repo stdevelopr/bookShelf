@@ -1,31 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router";
+import React from "react";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-export default function OrderByContainer({
-  sortedBooks,
-  setSortedBooks,
-  category
-}) {
-  const [orderBy, setOrderBy] = useState("Alphabetical order");
-  useEffect(() => {
-    sortedBooks.sort((a, b) => {
-      if (orderBy === "Alphabetical order")
-        return a["title"].localeCompare(b["title"]);
-      else if (orderBy === "Creation date asc") {
-        if (a["timestamp"] < b["timestamp"]) return -1;
-        else return 1;
-      } else if (orderBy === "Creation date desc") {
-        if (a["timestamp"] > b["timestamp"]) return -1;
-        else return 1;
-      }
-    });
-
-    setSortedBooks([...sortedBooks]);
-  }, [orderBy, category]);
-
+export default function OrderByContainer({ setOrderBy, orderBy }) {
   return (
     <Row
       style={{
@@ -58,9 +36,16 @@ export default function OrderByContainer({
         <option>Creation date asc</option>
         <option>Creation date desc</option>
       </Form.Control>
-      <div style={{ display: "inline-flex", float: "right", marginTop: "5px" }}>
+      <div
+        style={{
+          display: "inline-flex",
+          float: "right",
+          marginTop: "5px",
+          marginLeft: "20px"
+        }}
+      >
         <Link to="/category/reading">
-          <span style={{ margin: "0px 5px 0px 10px" }}>Reading</span>
+          <span style={{ margin: "0px 5px 0px 10px" }}>Currently Reading</span>
           <span
             style={{
               backgroundColor: "#ffca3a",
@@ -71,7 +56,7 @@ export default function OrderByContainer({
           ></span>
         </Link>
         <Link to="/category/wantToRead">
-          <span style={{ margin: "0px 5px 0px 10px" }}>Want to read</span>
+          <span style={{ margin: "0px 5px 0px 10px" }}>Want to Read</span>
           <span
             style={{
               backgroundColor: "#ff595e",

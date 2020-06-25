@@ -2,11 +2,13 @@ import React, { useState, useRef } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import "./BookItemEditable.scss";
+import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router";
 import { sagaBookTypes } from "../store/sagas/books";
+import { RiDeleteBin2Line } from "react-icons/ri";
+import "./BookItemEditable.scss";
 
 function BookItemEditable({ book, history }) {
   const dispatch = useDispatch();
@@ -55,23 +57,54 @@ function BookItemEditable({ book, history }) {
   };
   return (
     <div>
-      <Row className="row shelf">
-        <Col className="text-center text-md-left">
-          <Row style={{ marginTop: "30px" }}>
-            <Col className="text-center text-md-left">
+      <Row className="row" style={{ border: "solid 1px", marginTop: "10px" }}>
+        <Col>
+          {edit ? (
+            <div style={{ textAlign: "right" }}>
+              <div style={{ display: "inline-block" }}>
+                <Form.Control
+                  as="select"
+                  value={editCategory}
+                  onChange={e => {
+                    setEditCategory(e.target.value);
+                  }}
+                  style={{
+                    marginTop: "10px",
+                    height: "30px",
+                    fontSize: "10px",
+                    width: "200px"
+                  }}
+                >
+                  <option>Choose a category...</option>
+                  {Object.keys(categories).map(key => {
+                    return <option key={key}>{categories[key]}</option>;
+                  })}
+                </Form.Control>
+              </div>
+            </div>
+          ) : (
+            <div style={{ margin: "10px 0px 20px 0px", textAlign: "right" }}>
+              <Link to={`/category/${book.category}`}>
+                {categories[book.category]}
+              </Link>
+            </div>
+          )}
+          <Row>
+            <Col
+              className="text-center text-md-left"
+              style={{ margin: "20px" }}
+            >
               <Row>
                 <Col
                   md={2}
                   style={{
-                    fontSize: "20px",
-                    color: "blue",
                     textAlign: "center",
                     margin: "auto"
                   }}
                 >
-                  <div>Title</div>
+                  <div>Title:</div>
                 </Col>
-                <Col md={10} style={{ fontSize: "20px" }}>
+                <Col md={10}>
                   <div
                     ref={titleRef}
                     contentEditable={edit}
@@ -87,15 +120,13 @@ function BookItemEditable({ book, history }) {
                 <Col
                   md={2}
                   style={{
-                    fontSize: "18px",
-                    color: "blue",
                     textAlign: "center",
                     margin: "auto"
                   }}
                 >
-                  <div>Author</div>
+                  <div>Author:</div>
                 </Col>
-                <Col md={10} style={{ fontSize: "18px" }}>
+                <Col md={10}>
                   <div
                     ref={authorRef}
                     contentEditable={edit}
@@ -107,83 +138,79 @@ function BookItemEditable({ book, history }) {
                 </Col>
               </Row>
             </Col>
-            {edit ? (
-              <div className="category-small-screen category d-md-inline-block">
-                <Form.Control
-                  as="select"
-                  className="edit-select-category"
-                  value={editCategory}
-                  onChange={e => {
-                    setEditCategory(e.target.value);
+          </Row>
+          <Row>
+            <Col
+              className="text-center text-md-left"
+              style={{ margin: "20px" }}
+            >
+              <Row>
+                <Col
+                  md={2}
+                  style={{
+                    textAlign: "center",
+                    margin: "auto"
                   }}
                 >
-                  <option>Choose a category...</option>
-                  {Object.keys(categories).map(key => {
-                    return <option key={key}>{categories[key]}</option>;
-                  })}
-                </Form.Control>
-              </div>
-            ) : (
-              <div className="category-small-screen category d-md-inline-block">
-                <Link to={`/category/${book.category}`}>
-                  {categories[book.category]}
-                </Link>
-              </div>
-            )}
+                  <div>Description:</div>
+                </Col>
+                <Col md={10}>
+                  <div
+                    ref={descriptionRef}
+                    contentEditable={edit}
+                    suppressContentEditableWarning={true}
+                    className={`word-break ${edit_border}`}
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    {book.description}
+                  </div>
+                </Col>
+              </Row>
+            </Col>
           </Row>
-          <div
-            style={{
-              marginTop: "30px",
-              fontSize: "20px",
-              color: "blue",
-              textAlign: "center"
-            }}
-          >
-            Description
-          </div>
-          <Row
-            style={{ margin: "30px", marginTop: "10px", textAlign: "center" }}
-          >
-            <div
-              ref={descriptionRef}
-              contentEditable={edit}
-              suppressContentEditableWarning={true}
-              className={`word-break description ${edit_border}`}
-            >
-              {book.description}
+          <Row style={{ margin: "20px" }}>
+            <div style={{ margin: "30px", width: "100%", textAlign: "right" }}>
+              <div style={{ display: "inline-block", marginRight: "10px" }}>
+                <Button
+                  variant={edit ? "success" : "info"}
+                  onClick={() => {
+                    edit ? editBook() : setEdit(true);
+                  }}
+                  style={{ marginRight: "3px" }}
+                >
+                  {edit ? "Save" : "Edit"}
+                </Button>
+                {edit && (
+                  <Button variant="secondary" onClick={() => cancelEditing()}>
+                    Cancel
+                  </Button>
+                )}
+              </div>
+
+              <Button
+                variant="danger"
+                onClick={() => {
+                  dispatch({
+                    type: sagaBookTypes.DELETE_BOOK,
+                    payload: book.id
+                  });
+                  history.push("/");
+                }}
+              >
+                Delete
+              </Button>
+            </div>
+            <div style={{ width: "100%", textAlign: "right" }}>
+              Created at:{" "}
+              {new Date(book.timestamp).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              })}
             </div>
           </Row>
-          <div className="edit-item-button">
-            <button
-              onClick={() => {
-                edit ? editBook() : setEdit(true);
-              }}
-            >
-              {edit ? "Save" : "Edit"}
-            </button>
-            <button onClick={() => cancelEditing()}>Cancel</button>
-            <button
-              onClick={() => {
-                dispatch({
-                  type: sagaBookTypes.DELETE_BOOK,
-                  payload: book.id
-                });
-                history.push("/");
-              }}
-            >
-              Delete
-            </button>
-          </div>
-          <div>
-            Date:{" "}
-            {new Date(book.timestamp).toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "numeric",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit"
-            })}
-          </div>
         </Col>
       </Row>
     </div>

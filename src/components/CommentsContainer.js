@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { sagaCommentTypes } from "../store/sagas/comments";
+import { BsPlusSquare } from "react-icons/bs";
+import Button from "react-bootstrap/Button";
 import { AiOutlineEdit } from "react-icons/ai";
 import { FcDeleteRow } from "react-icons/fc";
 import { MdDeleteForever } from "react-icons/md";
@@ -19,25 +21,41 @@ export default function CommentsContainer({ parentId }) {
   const [editComment, setEditComment] = useState(false);
   // const edit_border = editComment ? "edit-border-comment" : "";
   return (
-    <div className="comments-container">
-      {comments.length > 0 ? (
-        comments.map(comment => (
-          <CommentLine key={comment.id} comment={comment} />
-        ))
-      ) : (
-        <p>No comments yet...</p>
-      )}
-      <div>
-        {!add && <button onClick={() => setAdd(!add)}>add</button>}
+    <div
+      style={{
+        marginTop: "20px",
+        padding: "10px 20px 0px 20px",
+        backgroundColor: "whitesmoke"
+      }}
+    >
+      <div
+        style={{ textAlign: "center", fontSize: "20px", marginBottom: "10px" }}
+      >
+        Comments
+      </div>
+      {comments.length > 0
+        ? comments.map(comment => (
+            <CommentLine key={comment.id} comment={comment} />
+          ))
+        : ""}
+      <div style={{ textAlign: "center" }}>
+        {!add && (
+          <BsPlusSquare
+            onClick={() => setAdd(!add)}
+            style={{ fontSize: "25px" }}
+          />
+        )}
         <div>
           {add && (
             <div>
               <textarea
-                className="comment-text-area"
+                style={{ height: "100px", width: "100%" }}
                 value={comment}
                 onChange={e => setComment(e.target.value)}
               ></textarea>
-              <button
+              <Button
+                variant="success"
+                style={{ marginRight: "10px" }}
                 onClick={() => {
                   dispatch({
                     type: sagaCommentTypes.ADD_COMMENT,
@@ -52,16 +70,17 @@ export default function CommentsContainer({ parentId }) {
                   setAdd(false);
                 }}
               >
-                save
-              </button>
-              <button
+                Save
+              </Button>
+              <Button
+                variant="secondary"
                 onClick={() => {
                   setAdd(false);
                   setComment("");
                 }}
               >
-                cancel
-              </button>
+                Cancel
+              </Button>
             </div>
           )}
         </div>

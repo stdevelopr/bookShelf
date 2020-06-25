@@ -26,7 +26,7 @@ export default function OrderByContainer({ setOrderBy, orderBy }) {
       <Form.Control
         as="select"
         className="edit-select-category"
-        style={{ width: "200px", display: "inline-block" }}
+        style={{ width: "200px", display: "inline-block", fontSize: "14px" }}
         value={orderBy}
         onChange={e => {
           setOrderBy(e.target.value);

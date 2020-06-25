@@ -14,7 +14,7 @@ export default function ShelfContainer({ children }) {
         }}
         className="logo-title"
       >
-        <p style={{ padding: "0px", margin: "0px" }}>Books Shelf</p>
+        <p style={{ padding: "0px", margin: "0px" }}>BookShelf</p>
       </div>
       <NavMenu />
       {children}

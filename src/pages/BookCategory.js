@@ -43,7 +43,7 @@ function BookCategory({ history }) {
       <table>
         <thead>
           <tr>
-            <th style={{ width: "30px" }}></th>
+            <th></th>
             <th>Title</th>
             <th>Author</th>
             <th>Description</th>

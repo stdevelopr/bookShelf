@@ -13,7 +13,8 @@ export default function CreateBookIcon({ setCreateModalOpen }) {
             marginRight: "20px",
             marginBottom: "5px",
             width: "fit-content",
-            display: "inline-block"
+            display: "inline-block",
+            backgroundColor: "#f5f5f587"
           }}
           onClick={() => setCreateModalOpen(true)}
         >

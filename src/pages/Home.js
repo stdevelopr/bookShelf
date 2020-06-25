@@ -68,7 +68,7 @@ function Home({ history }) {
             >
               <td
                 rowSpan={readingBooksCategory.length + 1}
-                style={{ width: "30px" }}
+                // style={{ width: "10px" }}
               ></td>
             </tr>
           )}

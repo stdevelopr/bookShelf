@@ -56,7 +56,7 @@ export default function CreateBookFormModal({
   return (
     <Modal show={createModalOpen} onHide={() => setCreateModalOpen(false)}>
       <Modal.Header closeButton>
-        <Modal.Title>New book</Modal.Title>
+        <Modal.Title style={{ color: "blue" }}>New book</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
@@ -91,7 +91,7 @@ export default function CreateBookFormModal({
             <fieldset>
               <Form.Group as={Row}>
                 <Form.Label as="legend" column sm={2}>
-                  Categories
+                  Category
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Check

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import NavMenu from "../components/NavMenu";
-import Container from "react-bootstrap/Container";
 import ShelfContainer from "../components/ShelfContainer";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "./BookControl.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { sagaBookTypes, getBookById } from "../store/sagas/books";
+import "./BookControl.scss";
 
 export default function BookControl() {
   const [bookTitle, setBookTitle] = useState("");
@@ -30,6 +28,7 @@ export default function BookControl() {
     setSortedBooks(booksData);
   }, [booksData]);
 
+  // fill the fields after a book is selected from the list
   const setBook = bookId => {
     let book = getBookById(bookId);
     setBookTitle(book.title);

@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Row from "react-bootstrap/Row";
 import { BsPlusSquare } from "react-icons/bs";
-import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
 
 export default function CreateBookIcon({ setCreateModalOpen }) {
   return (

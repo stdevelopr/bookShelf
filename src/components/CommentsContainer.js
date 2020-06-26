@@ -3,13 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { sagaCommentTypes } from "../store/sagas/comments";
 import { BsPlusSquare } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
-import { AiOutlineEdit } from "react-icons/ai";
-import { FcDeleteRow } from "react-icons/fc";
-import { MdDeleteForever } from "react-icons/md";
 import CommentLine from "./CommentLine";
-// MdDeleteForever
-
-import "./CommentsContainer.scss";
 
 export default function CommentsContainer({ parentId }) {
   const dispatch = useDispatch();
@@ -18,8 +12,7 @@ export default function CommentsContainer({ parentId }) {
   );
   const [add, setAdd] = useState(false);
   const [comment, setComment] = useState("");
-  const [editComment, setEditComment] = useState(false);
-  // const edit_border = editComment ? "edit-border-comment" : "";
+
   return (
     <div
       style={{

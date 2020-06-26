@@ -140,16 +140,16 @@ export default function CreateBookFormModal({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleClose()}>
-          Close
-        </Button>
         <Button
-          variant="primary"
+          variant="success"
           onClick={() => {
             createBook();
           }}
         >
           Save
+        </Button>
+        <Button variant="secondary" onClick={() => handleClose()}>
+          Close
         </Button>
       </Modal.Footer>
     </Modal>

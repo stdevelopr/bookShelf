@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router";
 import { sagaBookTypes } from "../store/sagas/books";
-import { RiDeleteBin2Line } from "react-icons/ri";
 import "./BookItemEditable.scss";
 
 function BookItemEditable({ book, history }) {

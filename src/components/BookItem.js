@@ -1,9 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "./BookItem.scss";
 
 function BookItem({ book, history, showCategory }) {

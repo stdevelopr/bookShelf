@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import BookItemEditable from "../components/BookItemEditable";
-import "./BookView.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { withRouter, useParams } from "react-router";
+import { useParams } from "react-router";
 import ShelfContainer from "../components/ShelfContainer";
 import CommentsContainer from "../components/CommentsContainer";
 import { sagaCommentTypes } from "../store/sagas/comments";
 
-function BookView(props) {
+function BookView() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const book = useSelector(
@@ -16,7 +15,7 @@ function BookView(props) {
 
   useEffect(() => {
     dispatch({ type: sagaCommentTypes.FETCH_COMMENTS });
-  }, []);
+  });
 
   return (
     <ShelfContainer>
@@ -36,4 +35,4 @@ function BookView(props) {
   );
 }
 
-export default withRouter(BookView);
+export default BookView;

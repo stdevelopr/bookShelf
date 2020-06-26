@@ -66,10 +66,7 @@ function Home({ history }) {
                 backgroundColor: "#ffca3a"
               }}
             >
-              <td
-                rowSpan={readingBooksCategory.length + 1}
-                // style={{ width: "10px" }}
-              ></td>
+              <td rowSpan={readingBooksCategory.length + 1}></td>
             </tr>
           )}
 

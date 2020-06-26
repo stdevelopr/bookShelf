@@ -89,6 +89,11 @@ export default function BookControl() {
         deleted: false
       }
     });
+    addToast("Saved Successfully", {
+      appearance: "success",
+      autoDismiss: true,
+      autoDismissTimeout: "3000"
+    });
   };
 
   const getCategoryKey = value => {

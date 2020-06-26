@@ -102,7 +102,7 @@ function BookItemEditable({ book, history }) {
                     margin: "auto"
                   }}
                 >
-                  <div>Title:</div>
+                  <div style={{ fontStyle: "italic" }}>Title:</div>
                 </Col>
                 <Col md={10}>
                   <div
@@ -110,7 +110,12 @@ function BookItemEditable({ book, history }) {
                     contentEditable={edit}
                     suppressContentEditableWarning={true}
                     className={`word-break ${edit_border}`}
-                    style={{ whiteSpace: "nowrap" }}
+                    style={{
+                      whiteSpace: "nowrap",
+                      fontWeight: "bold",
+                      fontFamily: "monospace",
+                      fontSize: "large"
+                    }}
                   >
                     {book.title}
                   </div>
@@ -124,7 +129,7 @@ function BookItemEditable({ book, history }) {
                     margin: "auto"
                   }}
                 >
-                  <div>Author:</div>
+                  <div style={{ fontStyle: "italic" }}>Author:</div>
                 </Col>
                 <Col md={10}>
                   <div
@@ -132,6 +137,7 @@ function BookItemEditable({ book, history }) {
                     contentEditable={edit}
                     suppressContentEditableWarning={true}
                     className={`word-break ${edit_border}`}
+                    style={{ fontFamily: "monospace", fontSize: "large" }}
                   >
                     {book.author}
                   </div>
@@ -152,7 +158,7 @@ function BookItemEditable({ book, history }) {
                     margin: "auto"
                   }}
                 >
-                  <div>Description:</div>
+                  <div style={{ fontStyle: "italic" }}>Description:</div>
                 </Col>
                 <Col md={10}>
                   <div
@@ -160,7 +166,7 @@ function BookItemEditable({ book, history }) {
                     contentEditable={edit}
                     suppressContentEditableWarning={true}
                     className={`word-break ${edit_border}`}
-                    style={{ whiteSpace: "nowrap" }}
+                    style={{ fontFamily: "monospace", fontSize: "large" }}
                   >
                     {book.description}
                   </div>
@@ -172,7 +178,7 @@ function BookItemEditable({ book, history }) {
             <div style={{ margin: "30px", width: "100%", textAlign: "right" }}>
               <div style={{ display: "inline-block", marginRight: "10px" }}>
                 <Button
-                  variant={edit ? "success" : "info"}
+                  variant={edit ? "success" : "secondary"}
                   onClick={() => {
                     edit ? editBook() : setEdit(true);
                   }}
@@ -200,7 +206,13 @@ function BookItemEditable({ book, history }) {
                 Delete
               </Button>
             </div>
-            <div style={{ width: "100%", textAlign: "right" }}>
+            <div
+              style={{
+                width: "100%",
+                textAlign: "right",
+                fontFamily: "monospace"
+              }}
+            >
               Created at:{" "}
               {new Date(book.timestamp).toLocaleDateString("en-GB", {
                 day: "numeric",

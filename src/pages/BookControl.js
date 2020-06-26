@@ -80,7 +80,7 @@ export default function BookControl() {
             <div
               style={{
                 marginTop: "20px",
-                border: "solid 1px",
+                border: "solid 1px #00000036",
                 padding: "20px"
               }}
             >
@@ -162,8 +162,8 @@ export default function BookControl() {
                 </Form.Group>
               </Form>
               <Button
-                variant="primary"
-                size="lg"
+                variant="success"
+                size="md"
                 onClick={() =>
                   action === "Create"
                     ? dispatch({
@@ -191,7 +191,7 @@ export default function BookControl() {
               >
                 Save
               </Button>{" "}
-              <Button variant="secondary" size="lg" onClick={() => clearForm()}>
+              <Button variant="secondary" size="md" onClick={() => clearForm()}>
                 Cancel
               </Button>{" "}
             </div>

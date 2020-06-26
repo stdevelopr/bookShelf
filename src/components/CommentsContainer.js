@@ -68,6 +68,7 @@ export default function CommentsContainer({ parentId }) {
                     }
                   });
                   setAdd(false);
+                  setComment("");
                 }}
               >
                 Save

@@ -19,3 +19,20 @@
 - [React](https://reactjs.org/): versão 16.13.1
 - [Redux](https://redux.js.org/): versão 4.0.5
 - [Redux-Saga](https://redux-saga.js.org/): versão 1.1.3
+
+# Instrução de instalação:
+
+- Clone esse repositório:  
+  `git clone https://github.com/stdevelopr/bookShelf.git`
+
+- Entre na pasta criada e instale as dependências necessárias:  
+  `npm install`
+
+- Execute execute o comando:  
+  `node app.js`
+
+- Abra o navegador em: http://localhost:8080
+
+---
+
+- :heavy_plus_sign: :books: Registre seus livros e anotações. :smiley:

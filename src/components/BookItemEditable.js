@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router";
 import { sagaBookTypes } from "../store/sagas/books";
+import { useToasts } from "react-toast-notifications";
 import "./BookItemEditable.scss";
 
 function BookItemEditable({ book, history }) {
@@ -14,6 +15,8 @@ function BookItemEditable({ book, history }) {
   const categories = useSelector(state => state.categories);
   const [edit, setEdit] = useState(false);
   const [editCategory, setEditCategory] = useState(categories[book.category]);
+  const { addToast } = useToasts();
+
   const titleRef = useRef();
   const authorRef = useRef();
   const descriptionRef = useRef();
@@ -51,6 +54,11 @@ function BookItemEditable({ book, history }) {
         category: getCategoryKey(editCategory),
         deleted: false
       }
+    });
+    addToast("Saved Successfully", {
+      appearance: "success",
+      autoDismiss: true,
+      autoDismissTimeout: "3000"
     });
     setEdit(false);
   };
@@ -198,6 +206,11 @@ function BookItemEditable({ book, history }) {
                   dispatch({
                     type: sagaBookTypes.DELETE_BOOK,
                     payload: book.id
+                  });
+                  addToast("Deleted Successfully", {
+                    appearance: "success",
+                    autoDismiss: true,
+                    autoDismissTimeout: "3000"
                   });
                   history.push("/");
                 }}

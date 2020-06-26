@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useDispatch, useSelector } from "react-redux";
 import { sagaBookTypes, getBookById } from "../store/sagas/books";
+import { useToasts } from "react-toast-notifications";
 import "./BookControl.scss";
 
 export default function BookControl() {
@@ -15,11 +16,13 @@ export default function BookControl() {
   const [bookCategory, setBookCategory] = useState("");
   const [action, setAction] = useState("Create");
   const [editBookId, setEditBookId] = useState("");
+  const [titleAlert, setTitleAlert] = useState(false);
   const [sortedBooks, setSortedBooks] = useState([]);
   const booksData = useSelector(state => state.books);
   const categories = useSelector(state => state.categories);
 
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
 
   useEffect(() => {
     booksData.sort((a, b) => {
@@ -44,6 +47,48 @@ export default function BookControl() {
     setBookAuthor("");
     setBookDescription("");
     setBookCategory("");
+    setTitleAlert(false);
+  };
+
+  const createBookHook = () => {
+    if (!bookTitle) {
+      setTitleAlert(true);
+      addToast("You must provide a title for the book", {
+        appearance: "error",
+        autoDismiss: true,
+        autoDismissTimeout: "3000"
+      });
+      return;
+    }
+    dispatch({
+      type: sagaBookTypes.ADD_NEW_BOOK,
+      payload: {
+        title: bookTitle ? bookTitle : "null",
+        author: bookAuthor,
+        description: bookDescription,
+        category: getCategoryKey(bookCategory),
+        deleted: false
+      }
+    });
+    addToast("Created Successfully", {
+      appearance: "success",
+      autoDismiss: true,
+      autoDismissTimeout: "3000"
+    });
+  };
+
+  const editBookHook = () => {
+    dispatch({
+      type: sagaBookTypes.EDIT_BOOK,
+      payload: {
+        id: editBookId,
+        title: bookTitle,
+        author: bookAuthor,
+        description: bookDescription,
+        category: getCategoryKey(bookCategory),
+        deleted: false
+      }
+    });
   };
 
   const getCategoryKey = value => {
@@ -93,7 +138,11 @@ export default function BookControl() {
                       type="title"
                       placeholder="Title"
                       value={bookTitle}
-                      onChange={e => setBookTitle(e.target.value)}
+                      style={{ border: titleAlert ? "1px solid red" : "" }}
+                      onChange={e => {
+                        setBookTitle(e.target.value);
+                        setTitleAlert(false);
+                      }}
                     />
                   </Col>
                 </Form.Group>
@@ -164,28 +213,7 @@ export default function BookControl() {
                 variant="success"
                 size="md"
                 onClick={() =>
-                  action === "Create"
-                    ? dispatch({
-                        type: sagaBookTypes.ADD_NEW_BOOK,
-                        payload: {
-                          title: bookTitle ? bookTitle : "null",
-                          author: bookAuthor,
-                          description: bookDescription,
-                          category: getCategoryKey(bookCategory),
-                          deleted: false
-                        }
-                      })
-                    : dispatch({
-                        type: sagaBookTypes.EDIT_BOOK,
-                        payload: {
-                          id: editBookId,
-                          title: bookTitle,
-                          author: bookAuthor,
-                          description: bookDescription,
-                          category: getCategoryKey(bookCategory),
-                          deleted: false
-                        }
-                      })
+                  action === "Create" ? createBookHook() : editBookHook()
                 }
               >
                 Save

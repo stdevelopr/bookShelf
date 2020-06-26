@@ -6,6 +6,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { sagaBookTypes } from "../store/sagas/books";
+import { useToasts } from "react-toast-notifications";
+import Alert from "react-bootstrap/Alert";
 
 export default function CreateBookFormModal({
   createModalOpen,
@@ -16,11 +18,15 @@ export default function CreateBookFormModal({
   const [bookAuthor, setBookAuthor] = useState("");
   const [bookDescription, setBookDescription] = useState("");
   const [bookCategory, setBookCategory] = useState("");
+  const [titleAlert, setTitleAlert] = useState(false);
   const categories = useSelector(state => state.categories);
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
 
   useEffect(() => {
     setBookCategory(categories[category]);
+
+    return setTitleAlert(false);
   }, [category, createModalOpen]);
 
   const getCategoryKey = value => {
@@ -32,6 +38,10 @@ export default function CreateBookFormModal({
   };
 
   const createBook = () => {
+    if (!bookTitle) {
+      setTitleAlert(true);
+      return;
+    }
     dispatch({
       type: sagaBookTypes.ADD_NEW_BOOK,
       payload: {
@@ -43,6 +53,11 @@ export default function CreateBookFormModal({
       }
     });
     handleClose();
+    addToast("Created Successfully", {
+      appearance: "success",
+      autoDismiss: true,
+      autoDismissTimeout: "3000"
+    });
   };
 
   const handleClose = () => {
@@ -61,6 +76,9 @@ export default function CreateBookFormModal({
       <Modal.Body>
         <div>
           <Form>
+            {titleAlert && (
+              <Alert variant="danger">You must provide a title.</Alert>
+            )}
             <Form.Group as={Row} controlId="formHorizontalEmail">
               <Form.Label column sm={2}>
                 Title
@@ -70,7 +88,11 @@ export default function CreateBookFormModal({
                   type="title"
                   placeholder="Title"
                   value={bookTitle}
-                  onChange={e => setBookTitle(e.target.value)}
+                  style={{ border: titleAlert ? "1px solid red" : "" }}
+                  onChange={e => {
+                    setBookTitle(e.target.value);
+                    setTitleAlert(false);
+                  }}
                 />
               </Col>
             </Form.Group>

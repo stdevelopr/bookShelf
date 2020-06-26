@@ -55,7 +55,7 @@ function Home({ history }) {
           {nullBooksCategory.map(book => (
             <tr key={book.id} onClick={() => history.push("/book/" + book.id)}>
               <td></td>
-              <td>{book.title}</td>
+              <td style={{ fontWeight: "bold" }}>{book.title}</td>
               <td>{book.author}</td>
               <td>{book.description}</td>
             </tr>

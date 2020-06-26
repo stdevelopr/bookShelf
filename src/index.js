@@ -4,6 +4,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
+import { ToastProvider } from "react-toast-notifications";
 import configureStore from "./store/configureStore";
 import Favicon from "react-favicon";
 import favicon from "./favicon.png";
@@ -13,7 +14,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Favicon url={favicon} />
     <Router>
-      <App />
+      <ToastProvider>
+        <App />
+      </ToastProvider>
     </Router>
   </Provider>,
   document.getElementById("root")

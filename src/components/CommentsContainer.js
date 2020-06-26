@@ -4,9 +4,12 @@ import { sagaCommentTypes } from "../store/sagas/comments";
 import { BsPlusSquare } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import CommentLine from "./CommentLine";
+import { useToasts } from "react-toast-notifications";
 
 export default function CommentsContainer({ parentId }) {
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
+
   let comments = useSelector(state =>
     state.comments.filter(comment => comment.parentId === parentId)
   );
@@ -62,6 +65,11 @@ export default function CommentsContainer({ parentId }) {
                   });
                   setAdd(false);
                   setComment("");
+                  addToast("Added Successfully", {
+                    appearance: "success",
+                    autoDismiss: true,
+                    autoDismissTimeout: "3000"
+                  });
                 }}
               >
                 Save

@@ -6,7 +6,7 @@
 :trophy: Criação e edição de livros com armazenamento no próprio navegador.
 
 :trophy: Possibilita dividir os livros cadastrados nas categorias:
-Currently Reading, Want to Read , Read.
+"Currently Reading", "Want to Read" , "Read".
 
 :trophy: Apresenta os livros em uma lista dividida por categorias e permite realizar a filtragem por ordem alfabética ou data de criação dentro das próprias categorias.
 

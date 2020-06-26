@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import "./OrderByContainer.scss";
 
-export default function OrderByContainer({ setOrderBy, orderBy }) {
+export default function OrderByContainer({ setOrderBy, orderBy, category }) {
   return (
     <Row
       style={{
@@ -44,7 +45,11 @@ export default function OrderByContainer({ setOrderBy, orderBy }) {
           marginLeft: "20px"
         }}
       >
-        <Link to="/category/reading">
+        <Link
+          to="/category/reading"
+          style={{ textDecoration: "none", color: "black" }}
+          className={category === "reading" ? "underline" : ""}
+        >
           <span style={{ margin: "0px 5px 0px 10px" }}>Currently Reading</span>
           <span
             style={{
@@ -55,7 +60,11 @@ export default function OrderByContainer({ setOrderBy, orderBy }) {
             }}
           ></span>
         </Link>
-        <Link to="/category/wantToRead">
+        <Link
+          to="/category/wantToRead"
+          style={{ textDecoration: "none", color: "black" }}
+          className={category === "wantToRead" ? "underline" : ""}
+        >
           <span style={{ margin: "0px 5px 0px 10px" }}>Want to Read</span>
           <span
             style={{
@@ -66,7 +75,11 @@ export default function OrderByContainer({ setOrderBy, orderBy }) {
             }}
           ></span>
         </Link>
-        <Link to="/category/read">
+        <Link
+          to="/category/read"
+          style={{ textDecoration: "none", color: "black" }}
+          className={category === "read" ? "underline" : ""}
+        >
           <span style={{ margin: "0px 5px 0px 10px" }}>Read</span>
           <span
             style={{

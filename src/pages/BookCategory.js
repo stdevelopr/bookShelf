@@ -38,7 +38,11 @@ function BookCategory({ history }) {
 
   return (
     <ShelfContainer>
-      <OrderByContainer orderBy={orderBy} setOrderBy={setOrderBy} />
+      <OrderByContainer
+        orderBy={orderBy}
+        setOrderBy={setOrderBy}
+        category={category}
+      />
       <CreateBookIcon setCreateModalOpen={setCreateModalOpen} />
       <table>
         <thead>

@@ -5,8 +5,9 @@ import { sagaBookTypes } from "./store/sagas/books";
 import BookCategory from "./pages/BookCategory";
 import BookView from "./pages/BookView";
 import BookControl from "./pages/BookControl";
+import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
 
 function App() {
@@ -27,6 +28,10 @@ function App() {
       <Route path="/control">
         <BookControl />
       </Route>
+      <Route path="/not-found">
+        <NotFound />
+      </Route>
+      <Redirect to="not-found" />
     </Switch>
   );
 }

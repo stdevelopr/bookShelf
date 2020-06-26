@@ -25,9 +25,7 @@ function BookView() {
             <BookItemEditable book={book} />
           </div>
         ) : (
-          <div>
-            <p>select a book</p>
-          </div>
+          ""
         )}
       </div>
       <CommentsContainer parentId={id} />
